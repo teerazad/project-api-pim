@@ -18,7 +18,11 @@ export class UsersController {
 
   @Post("/login")
   getHello(@Body() logIn: LogIn):Object{
+    return this.appService.getIsLogin(logIn);
+  }
 
+  @Post("/auth")
+  getauth(@Body() logIn: LogIn):Object{
     return this.appService.getIsLogin(logIn);
   }
 

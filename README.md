@@ -29,7 +29,7 @@
 ## Installation
 
 ```bash
-$ yarn install
+$ yarn add ./
 ```
 
 ## Running the app

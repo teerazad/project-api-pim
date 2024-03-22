@@ -1,16 +1,19 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TblOfficers } from '../../entity/officers.entity';
-import { RegisterOfficer } from 'src/models/req/registerOffice.models';
 import * as bcrypt from 'bcrypt';
+import { TblAdmins } from 'src/entity/admins.entity';
+import { RegisterAdmins } from 'src/models/req/registerAdmin.models';
 
 @Injectable()
 export class RegisterAdminService {
 
   constructor(
+    @InjectRepository(TblAdmins)
+    private usersAdminsRepository: Repository<TblAdmins>,
     @InjectRepository(TblOfficers)
-    private usersRepository: Repository<TblOfficers>,
+    private usersOfficersRepository: Repository<TblOfficers>,
   ) {}
 
 //   findAll(): Promise<TblOfficers[]> {
@@ -26,35 +29,48 @@ export class RegisterAdminService {
 //   }
 
   
-  async register(registerOfficer: RegisterOfficer){
+  async register(registerAdmins: RegisterAdmins){
     const saltOrRounds = 10;
-    const  password = registerOfficer.password;
+    const  password = registerAdmins.password;
     const hash = await bcrypt.hash(password, saltOrRounds);
+    const officer: Promise<TblOfficers> = this.usersOfficersRepository.findOneBy({ username : registerAdmins.username });
+  
+    
     try {
-        await this.usersRepository
+      if(officer == null){
+        await this.usersAdminsRepository
         .createQueryBuilder()
         .insert()
-        .into(TblOfficers)
+        .into(TblAdmins)
         .values([
             {
-                id:registerOfficer.id,
-                prefix:registerOfficer.prefix,
-                firstName: registerOfficer.firstName,
-                lastName: registerOfficer.lastName,
-                username: registerOfficer.username,
+                id:registerAdmins.id,
+                prefix:registerAdmins.prefix,
+                firstName: registerAdmins.firstName,
+                lastName: registerAdmins.lastName,
+                username: registerAdmins.username,
                 password: hash,
-                jobPosition: registerOfficer.jobPosition,
-                status : registerOfficer.status
+                jobPosition: registerAdmins.jobPosition,
+                status : registerAdmins.status
             }
         ])
         .execute()
-        throw new HttpException('Officer Register Succeed', HttpStatus.OK);
+        return {
+          "statusCode":  HttpStatus.OK,
+          "message": "Officer Register Succeed",
+         }
+      }else{
+        return {
+          "statusCode": HttpStatus.BAD_REQUEST,
+          "message": "ชื่อผู้ใช้ซำ้กับในระบบกรุณาเปลียนชื่อผู้ใช้ !!!"
+        }
+      }
     } catch (error) {
-      throw new HttpException(
-        error,
-         HttpStatus.PAYMENT_REQUIRED
-      );
-    }
+      return {
+        "statusCode": HttpStatus.BAD_REQUEST,
+        "message": "ชื่อผู้ใช้ซำ้กับในระบบกรุณาเปลียนชื่อผู้ใช้ !!!"
+      }
+    };
     
   }
 }

@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { UsersController } from './controllers/users.controller';
 import { LoginService } from './services/users/login.service';
 import {TblOfficers} from './entity/officers.entity'
-import {Admins} from './entity/admins.entity'
+import {TblAdmins} from './entity/admins.entity'
 import {Patient} from './entity/patient.entity'
 import { RegisterOfficerService } from './services/users/registerOfficers.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -20,13 +20,14 @@ import { RegisterAdminService } from './services/users/registerAdmins.service';
       database: 'pimdb',
       entities: [
         TblOfficers,
-        Admins,
+        TblAdmins,
         Patient
       ],
       synchronize: true,
     }),
     TypeOrmModule.forFeature([
       TblOfficers,
+      TblAdmins,
     ]),
   ],
   controllers: [
