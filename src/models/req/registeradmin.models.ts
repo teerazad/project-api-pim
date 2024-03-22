@@ -1,9 +1,10 @@
-import { IsNotEmpty, IsNumber, IsString, IsStrongPassword } from 'class-validator';
+import { IsNotEmpty, IsString, IsStrongPassword, IsUUID } from 'class-validator';
 
 export class RegisterOfficer {
+    @IsUUID()
     id: string;
 
-    @IsNotEmpty({message:"กรุณากรอกข้อมูล"})
+    @IsNotEmpty({ message: 'กรุณากรอกข้อมูล' })
     @IsString()
     prefix: string
 

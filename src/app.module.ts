@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
 import { UsersController } from './controllers/users.controller';
-import { AppService } from './services/users/login.service';
+import { LoginService } from './services/users/login.service';
 import {TblOfficers} from './entity/officers.entity'
 import {Admins} from './entity/admins.entity'
 import {Patient} from './entity/patient.entity'
 import { RegisterOfficerService } from './services/users/registerOfficers.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Repository } from 'typeorm/repository/Repository';
 
 
 @Module({
@@ -33,7 +32,7 @@ import { Repository } from 'typeorm/repository/Repository';
     UsersController
   ],
   providers: [
-    AppService,
+    LoginService,
     RegisterOfficerService,
   ],
 })

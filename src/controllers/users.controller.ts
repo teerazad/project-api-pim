@@ -1,20 +1,22 @@
-import { Controller, Post, Body } from '@nestjs/common';
-import { AppService } from '../services/users/login.service';
+import { Controller, Post, Body, UsePipes, ValidationPipe } from '@nestjs/common';
+import { LoginService } from '../services/users/login.service';
 import { RegisterOfficerService } from '../services/users/registerOfficers.service';
 import { RegisterOfficer } from '../models/req/registerOffice.models';
 import { v4 as uuid } from 'uuid';
-
+import { LogIn } from 'src/models/req/logIn.models';
+import {  } from 'class-validator';
 
 @Controller("api/users")
 export class UsersController {
   constructor(
-    private readonly appService: AppService,
+    private readonly appService: LoginService,
     private readonly registerOfficerService: RegisterOfficerService
   ) {}
 
   @Post("/login")
-  getHello(): string {
-    return this.appService.getHello();
+  getHello(@Body() logIn: LogIn):Object{
+
+    return this.appService.getIsLogin(logIn);
   }
 
   @Post("/register/officers")
@@ -24,7 +26,7 @@ export class UsersController {
   }
 
   @Post("/register/admins")
-  createAdmins(@Body() registerOfficer: RegisterOfficer): string {
+  createAdmins(@Body() registerOfficer: RegisterOfficer): Object{
     registerOfficer.id = uuid();
     return "ID : " + registerOfficer.id + " , Status : " + registerOfficer.status;
   }
