@@ -5,12 +5,15 @@ import { RegisterOfficer } from '../models/req/registerOffice.models';
 import { v4 as uuid } from 'uuid';
 import { LogIn } from 'src/models/req/logIn.models';
 import {  } from 'class-validator';
+import { RegisterAdminService } from 'src/services/users/registerAdmins.service';
+import { RegisterAdmins } from 'src/models/req/registerAdmin.models';
 
 @Controller("api/users")
 export class UsersController {
   constructor(
     private readonly appService: LoginService,
-    private readonly registerOfficerService: RegisterOfficerService
+    private readonly registerOfficerService: RegisterOfficerService,
+    private readonly registerAdminService:RegisterAdminService
   ) {}
 
   @Post("/login")
@@ -26,8 +29,8 @@ export class UsersController {
   }
 
   @Post("/register/admins")
-  createAdmins(@Body() registerOfficer: RegisterOfficer): Object{
-    registerOfficer.id = uuid();
-    return "ID : " + registerOfficer.id + " , Status : " + registerOfficer.status;
+  createAdmins(@Body() registerAdmins: RegisterAdmins): Object{
+    registerAdmins.id = uuid();
+    return this.registerAdminService.register(registerAdmins);
   }
 }

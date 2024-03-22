@@ -6,6 +6,7 @@ import {Admins} from './entity/admins.entity'
 import {Patient} from './entity/patient.entity'
 import { RegisterOfficerService } from './services/users/registerOfficers.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { RegisterAdminService } from './services/users/registerAdmins.service';
 
 
 @Module({
@@ -34,6 +35,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   providers: [
     LoginService,
     RegisterOfficerService,
+    RegisterAdminService
   ],
 })
 export class AppModule {}

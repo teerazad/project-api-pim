@@ -1,18 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ArgumentMetadata, BadRequestException, UnprocessableEntityException, ValidationPipe } from '@nestjs/common';
-
-export class ValidationPipe422 extends ValidationPipe {
-  public async transform (value, metadata: ArgumentMetadata) {
-    try {
-      return await super.transform(value, metadata)
-    } catch (e) {
-      if (e instanceof BadRequestException) {
-        throw new UnprocessableEntityException(e.initMessage)
-      }
-    }
-  }
-}
+import {  BadRequestException, ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

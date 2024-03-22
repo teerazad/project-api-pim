@@ -48,7 +48,10 @@ export class RegisterOfficerService {
             }
         ])
         .execute()
-        throw new HttpException('Officer Register Succeed', HttpStatus.OK);
+        return {
+          "statusCode":  HttpStatus.OK,
+          "message": "Officer Register Succeed",
+         }
     } catch (error) {
       throw new HttpException(
         error,
