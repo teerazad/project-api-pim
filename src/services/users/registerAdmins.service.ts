@@ -34,10 +34,9 @@ export class RegisterAdminService {
     const  password = registerAdmins.password;
     const hash = await bcrypt.hash(password, saltOrRounds);
     const officer: Promise<TblOfficers> = this.usersOfficersRepository.findOneBy({ username : registerAdmins.username });
-  
     
     try {
-      if(officer == null){
+      if((await officer)==null){
         await this.usersAdminsRepository
         .createQueryBuilder()
         .insert()

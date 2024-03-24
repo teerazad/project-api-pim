@@ -14,7 +14,7 @@ export class RegisterOfficerService {
     private usersAdminsRepository: Repository<TblAdmins>,
     @InjectRepository(TblOfficers)
     private usersRepository: Repository<TblOfficers>,
-  ) { }
+  ){}
 
   //   findAll(): Promise<TblOfficers[]> {
   //     return this.usersRepository.find();
@@ -33,9 +33,10 @@ export class RegisterOfficerService {
     const saltOrRounds = 10;
     const password = registerOfficer.password;
     const hash = await bcrypt.hash(password, saltOrRounds);
-    const admin: Promise<TblAdmins> = this.usersAdminsRepository.findOneBy({ username : registerOfficer.username });
+    const admin: Promise<TblAdmins> = this.usersAdminsRepository.findOneBy({ username : "teero453" });
+    console.log(admin)
     try {
-      if (admin == null) {
+      if ((await admin)==null) {
         await this.usersRepository
           .createQueryBuilder()
           .insert()

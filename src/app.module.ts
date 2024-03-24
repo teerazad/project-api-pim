@@ -7,6 +7,11 @@ import {Patient} from './entity/patient.entity'
 import { RegisterOfficerService } from './services/users/registerOfficers.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RegisterAdminService } from './services/users/registerAdmins.service';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from './auth/constants';
+import { AuthService } from './services/users/auth.service';
+import { ViewsController } from './controllers/views.controller';
+import { DataUserService } from './services/users/dataUser.service';
 
 
 @Module({
@@ -25,18 +30,26 @@ import { RegisterAdminService } from './services/users/registerAdmins.service';
       ],
       synchronize: true,
     }),
+    JwtModule.register({
+      global: true,
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: '6h' },
+    }),
     TypeOrmModule.forFeature([
       TblOfficers,
       TblAdmins,
     ]),
   ],
   controllers: [
-    UsersController
+    UsersController,
+    ViewsController
   ],
   providers: [
     LoginService,
+    AuthService,
     RegisterOfficerService,
-    RegisterAdminService
+    RegisterAdminService,
+    DataUserService
   ],
 })
 export class AppModule {}
