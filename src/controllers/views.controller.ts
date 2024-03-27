@@ -8,8 +8,20 @@ export class ViewsController {
     return null;
   }
 
-  @Get('add/officer')
+  @Get('admin/index')
+  @Render('page-admin/index')
+  getIndex(): object {
+    return null;
+  }
+
+  @Get('admin/page-officer')
   @Render('page-admin/page-officer')
+  getOfficer(): object {
+    return null;
+  }
+
+  @Get('admin/page-officer-add')
+  @Render('page-admin/page-officer-register')
   getRegisteOfficer(): object {
     return null;
   }

@@ -27,7 +27,6 @@ export class LoginService {
 
     console.log((await officer)!==null)
     console.log((await admin)!==null)
-    console.log((await officer).password)
 
     if(logIn != null && ((await officer) !== null || (await admin) !== null )){
 

@@ -1,3 +1,9 @@
+var element1 = document.getElementById('userofficer');
+element1.classList.add("active");
+
+var element2 = document.getElementById('userall');
+element2.classList.add("active");
+
 const list = []
 
 axios('http://localhost:3000/api/users/data/officers?search=')
@@ -27,8 +33,8 @@ axios('http://localhost:3000/api/users/data/officers?search=')
             });
         }
     });
-    import {h
-    } from "https://unpkg.com/gridjs?module";
+    
+import {h} from "https://unpkg.com/gridjs?module";
 new gridjs.Grid({
     columns: ["ลำดับ", "ชื่อนามสกุล", "ชื่อผู้ใช้งาน", "ตำเเหน่ง",
         {
@@ -48,7 +54,8 @@ new gridjs.Grid({
                   onClick: () => alert(`Editing "${row.cells[0].data}" "${row.cells[1].data}"`)
                 }, 'Delete');
               }
-        }],
+        }
+    ],
         
     search: true,
     pagination: {

@@ -3,7 +3,7 @@ import { UsersController } from './controllers/users.controller';
 import { LoginService } from './services/users/login.service';
 import {TblOfficers} from './entity/officers.entity'
 import {TblAdmins} from './entity/admins.entity'
-import {Patient} from './entity/patient.entity'
+import { TblPatient} from './entity/patient.entity'
 import { RegisterOfficerService } from './services/users/registerOfficers.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RegisterAdminService } from './services/users/registerAdmins.service';
@@ -12,6 +12,8 @@ import { jwtConstants } from './auth/constants';
 import { AuthService } from './services/users/auth.service';
 import { ViewsController } from './controllers/views.controller';
 import { DataUserService } from './services/users/dataUser.service';
+import { TblCheckRights } from './entity/checkRights.entity';
+import { TblDrug } from './entity/drug.entity';
 
 
 @Module({
@@ -26,9 +28,13 @@ import { DataUserService } from './services/users/dataUser.service';
       entities: [
         TblOfficers,
         TblAdmins,
-        Patient
+        TblPatient,
+        TblCheckRights,
+        TblDrug
       ],
       synchronize: true,
+      migrationsRun: true,
+      dropSchema: true,
     }),
     JwtModule.register({
       global: true,
@@ -38,6 +44,9 @@ import { DataUserService } from './services/users/dataUser.service';
     TypeOrmModule.forFeature([
       TblOfficers,
       TblAdmins,
+      TblPatient,
+      TblCheckRights,
+      TblDrug
     ]),
   ],
   controllers: [
