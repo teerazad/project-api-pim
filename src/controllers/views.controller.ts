@@ -37,5 +37,11 @@ export class ViewsController {
   getPatientForm(): object {
     return null;
   }
+
+  @Get('admin/page-drugs-form')
+  @Render('admin/page-drugs-form')
+  getdrugs(): object {
+    return null;
+  }
 }
 

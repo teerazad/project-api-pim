@@ -1,5 +1,4 @@
 import { Entity, Column, PrimaryColumn, OneToMany } from 'typeorm';
-import { TblCheckRights } from './checkRights.entity';
 
 @Entity({name:"patient",comment:"ตารางผู้ป่วย"})
 export class TblPatient {
@@ -43,6 +42,9 @@ export class TblPatient {
   @Column({name:"job",type:"varchar"})
   job: string;
 
-  @OneToMany(() => TblCheckRights, (checkRights) => checkRights.napNo)
-  checkRights: TblCheckRights[]
+  @Column({name:"ucep_id",type:"varchar"})
+  ucepId: string;
+
+  @Column({name:"ucep_name",type:"varchar"})
+  name: string;
 }

@@ -21,8 +21,8 @@ export class TblOfficers {
   password: string;
 
   @Column({name:"job_position"})
-  jobPosition: string
+  jobPosition: string;
 
   @Column({name:"status"})
-  status: string
+  status: string;
 }

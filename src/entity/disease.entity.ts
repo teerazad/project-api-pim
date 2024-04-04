@@ -5,8 +5,8 @@ import { TblPatient } from './patient.entity';
 export class TblDisease {
 
   @PrimaryColumn({name:"dis_id",type:"varchar"})
-  disId: string
+  disId: string;
 
   @Column({name:"name",type:"varchar"})
-  name: string
+  name: string;
 }

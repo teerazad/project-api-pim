@@ -12,9 +12,13 @@ import { jwtConstants } from './auth/constants';
 import { AuthService } from './services/users/auth.service';
 import { ViewsController } from './controllers/views.controller';
 import { DataUserService } from './services/users/dataUser.service';
-import { TblCheckRights } from './entity/checkRights.entity';
 import { TblDrug } from './entity/drug.entity';
 import { TblMedicineHtr } from './entity/medicineHistory.entity';
+import { TblDisease } from './entity/disease.entity';
+import { TblMorbidities } from './entity/CoMorbidities.entity';
+import { TblAppointmentMedicine } from './entity/appointmentMedicine.entity';
+import { TblAppointmentDisease } from './entity/appointmentDisease.entity';
+import { TblAppointment } from './entity/appointment.entity';
 
 
 @Module({
@@ -30,9 +34,13 @@ import { TblMedicineHtr } from './entity/medicineHistory.entity';
         TblOfficers,
         TblAdmins,
         TblPatient,
-        TblCheckRights,
         TblDrug,
-        TblMedicineHtr
+        TblMedicineHtr,
+        TblDisease,
+        TblMorbidities,
+        TblAppointmentMedicine,
+        TblAppointmentDisease,
+        TblAppointment
       ],
       synchronize: true,
       dropSchema: true,
@@ -46,9 +54,14 @@ import { TblMedicineHtr } from './entity/medicineHistory.entity';
       TblOfficers,
       TblAdmins,
       TblPatient,
-      TblCheckRights,
       TblDrug,
-      TblMedicineHtr
+      TblMedicineHtr,
+      TblDisease,
+      TblMorbidities,
+      TblAppointmentMedicine,
+      TblAppointmentDisease,
+      TblAppointment
+
     ]),
   ],
   controllers: [
