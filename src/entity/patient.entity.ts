@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryColumn, OneToMany } from 'typeorm';
 import { TblCheckRights } from './checkRights.entity';
 
-@Entity({name:"patient"})
+@Entity({name:"patient",comment:"ตารางผู้ป่วย"})
 export class TblPatient {
 
   @PrimaryColumn({name:"nap_no",type:"varchar"})
@@ -44,5 +44,5 @@ export class TblPatient {
   job: string;
 
   @OneToMany(() => TblCheckRights, (checkRights) => checkRights.napNo)
-  photos: TblCheckRights[]
+  checkRights: TblCheckRights[]
 }

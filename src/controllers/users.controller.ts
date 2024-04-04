@@ -25,6 +25,11 @@ export class UsersController {
     return this.dataUserService.getIsdataOffice(search);
   }
 
+  @Get("/data/admin")
+  getDataAdmin(@Query('search') search,@Headers('Authorization') headers: any):Object{
+    return this.dataUserService.getIsdataOffice(search);
+  }
+
   @Post("/login")
   getHello(@Body() logIn: LogIn):Object{
     return this.appService.getIsLogin(logIn);

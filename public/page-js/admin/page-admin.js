@@ -1,4 +1,4 @@
-var element1 = document.getElementById('userofficer');
+var element1 = document.getElementById('useradmin');
 element1.classList.add("active");
 
 var element2 = document.getElementById('userall');

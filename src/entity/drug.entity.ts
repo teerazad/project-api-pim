@@ -1,7 +1,7 @@
-import { Entity, Column, PrimaryColumn, ManyToOne } from 'typeorm';
-import { TblPatient } from './patient.entity';
+import { Entity, Column, PrimaryColumn, OneToMany } from 'typeorm';
+import { TblMedicineHtr } from './medicineHistory.entity';
 
-@Entity({name:"Drug"})
+@Entity({name:"Drug",comment:"ตารางยา"})
 export class TblDrug {
 
   @PrimaryColumn({name:"d_id",type:"varchar"})
@@ -10,6 +10,6 @@ export class TblDrug {
   @Column({name:"name",type:"varchar"})
   name: string
 
-  @ManyToOne(() => TblPatient, (patient) => patient.napNo)
-  napNo:  TblPatient
+  @OneToMany(() => TblMedicineHtr, (medicineHtr) => medicineHtr.mhId)
+  checkRights: TblMedicineHtr[]
 }

@@ -14,26 +14,27 @@ import { ViewsController } from './controllers/views.controller';
 import { DataUserService } from './services/users/dataUser.service';
 import { TblCheckRights } from './entity/checkRights.entity';
 import { TblDrug } from './entity/drug.entity';
+import { TblMedicineHtr } from './entity/medicineHistory.entity';
 
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: 'MYSQL_PIM',
       port: 3306,
       username: 'root',
-      password: '',
+      password: 'my-secret-pw',
       database: 'pimdb',
       entities: [
         TblOfficers,
         TblAdmins,
         TblPatient,
         TblCheckRights,
-        TblDrug
+        TblDrug,
+        TblMedicineHtr
       ],
       synchronize: true,
-      migrationsRun: true,
       dropSchema: true,
     }),
     JwtModule.register({
@@ -46,7 +47,8 @@ import { TblDrug } from './entity/drug.entity';
       TblAdmins,
       TblPatient,
       TblCheckRights,
-      TblDrug
+      TblDrug,
+      TblMedicineHtr
     ]),
   ],
   controllers: [

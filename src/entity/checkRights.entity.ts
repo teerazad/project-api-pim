@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { TblPatient } from './patient.entity';
 
-@Entity({name:"checkRights"})
+@Entity({name:"checkRights",comment:"ตารางตรวจสิทธิ์"})
 export class TblCheckRights {
 
   @PrimaryColumn({name:"ucep_id",type:"varchar"})

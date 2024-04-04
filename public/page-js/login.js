@@ -6,7 +6,7 @@ Array.from(document.getElementsByClassName('btn btn-primary d-grid w-100')).forE
         }
         console.log(jsondata)
         
-        axios.post('http://localhost:3000/api/users/login', jsondata)
+        axios.post('https://pim.phanomhospital.online/api/users/login', jsondata)
             .then(function (response) {
                 console.log(response.data);
                 if (response.data.statusCode == "200" && response.data.status == 'officer') {

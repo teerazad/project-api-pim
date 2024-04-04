@@ -1,0 +1,48 @@
+version: '3.8'
+services:
+  db:
+    container_name: MYSQL_PIM
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: pimdb
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+      MYSQL_WAIT_TIMEOUT: 2147483
+      MYSQL_INTERACTIVE_TIMEOUT: 604800
+    volumes:
+       - ./db-mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - networks-api
+
+  node:
+    build: .
+    container_name: project_pim
+    ports:
+      - "4000:4000"
+    # command: 
+    networks:
+      - networks-api
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+      ADMINER_DEFAULT_SERVER: db
+    networks:
+          - networks-api
+    depends_on:
+      - db
+
+  cloudflared: 
+    image: cloudflare/cloudflared 
+    restart: unless-stopped 
+    command: tunnel run 
+    environment:     
+      - TUNNEL_TOKEN=eyJhIjoiOTVkYTY0MWM4MWMwMzk2MDVjNjJkNWJkMGEzOTliYTMiLCJ0IjoiYTMxOWIxZTEtMGNhNi00NDI0LTgzM2MtZjY5YzFiYTM4YTc4IiwicyI6IlpHUXdOVEV5WlRZdFptRmxZeTAwTXpKaUxUZzNOMkl0WVRjellqRm1ZVGt3TUdKaCJ9
+    networks:
+      - networks-api
+networks:
+  networks-api:

@@ -9,20 +9,32 @@ export class ViewsController {
   }
 
   @Get('admin/index')
-  @Render('page-admin/index')
+  @Render('admin/index')
   getIndex(): object {
     return null;
   }
 
   @Get('admin/page-officer')
-  @Render('page-admin/page-officer')
+  @Render('admin/page-officer')
   getOfficer(): object {
     return null;
   }
 
   @Get('admin/page-officer-add')
-  @Render('page-admin/page-officer-register')
+  @Render('admin/page-officer-register')
   getRegisteOfficer(): object {
+    return null;
+  }
+
+  @Get('admin/page-admin')
+  @Render('admin/page-admin')
+  getAdmin(): object {
+    return null;
+  }
+
+  @Get('admin/page-patient-form')
+  @Render('admin/page-patient-form')
+  getPatientForm(): object {
     return null;
   }
 }
