@@ -1,3 +1,4 @@
+import {h} from "https://unpkg.com/gridjs?module";
 var element1 = document.getElementById('userofficer');
 element1.classList.add("active");
 
@@ -34,46 +35,49 @@ axios('https://pim.phanomhospital.online/api/users/data/officers?search=')
         }
     });
     
-import {h} from "https://unpkg.com/gridjs?module";
-new gridjs.Grid({
-    columns: ["ลำดับ", "ชื่อนามสกุล", "ชื่อผู้ใช้งาน", "ตำเเหน่ง",
-        {
-            name: 'เเก้ไข',
-            formatter: (cell, row) => {
-                return h('button', {
-                  className: 'btn btn-warning',
-                  onClick: () => alert(`Editing "${row.cells[0].data}" "${row.cells[1].data}"`)
-                }, 'Edit');
-              }
+setTimeout(()=> {
+    console.log("Do this instead");
+    new gridjs.Grid({
+        columns: ["ลำดับ", "ชื่อนามสกุล", "ชื่อผู้ใช้งาน", "ตำเเหน่ง",
+            {
+                name: 'เเก้ไข',
+                formatter: (cell, row) => {
+                    return h('button', {
+                      className: 'btn btn-warning',
+                      onClick: () => alert(`Editing "${row.cells[0].data}" "${row.cells[1].data}"`)
+                    }, 'Edit');
+                  }
+            },
+            {
+                name: 'ลบ',
+                formatter: (cell, row) => {
+                    return h('button', {
+                      className: 'btn btn-danger',
+                      onClick: () => alert(`Editing "${row.cells[0].data}" "${row.cells[1].data}"`)
+                    }, 'Delete');
+                  }
+            }
+        ],
+            
+        search: true,
+        pagination: {
+            limit: 10
         },
-        {
-            name: 'ลบ',
-            formatter: (cell, row) => {
-                return h('button', {
-                  className: 'btn btn-danger',
-                  onClick: () => alert(`Editing "${row.cells[0].data}" "${row.cells[1].data}"`)
-                }, 'Delete');
-              }
-        }
-    ],
-        
-    search: true,
-    pagination: {
-        limit: 10
-    },
-    data: list,
-    style: {
-        table: {
-          border: '3px solid #ccc'
+        data: list,
+        style: {
+            table: {
+              border: '3px solid #ccc'
+            },
+            th: {
+              'background-color': 'rgba(0, 0, 0, 0.1)',
+              color: '#000',
+              'border-bottom': '3px solid #ccc',
+              'text-align': 'center'
+            },
+            td: {
+              'text-align': 'center'
+            }
         },
-        th: {
-          'background-color': 'rgba(0, 0, 0, 0.1)',
-          color: '#000',
-          'border-bottom': '3px solid #ccc',
-          'text-align': 'center'
-        },
-        td: {
-          'text-align': 'center'
-        }
-    },
-}).render(document.getElementById("wrapper"));
+    }).render(document.getElementById("wrapper"));
+   
+}, 2000);

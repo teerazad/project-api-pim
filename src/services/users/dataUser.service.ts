@@ -13,7 +13,7 @@ export class DataUserService {
     @InjectRepository(TblOfficers)
     private dataOfficersRepository: Repository<TblOfficers>,
     @InjectRepository(TblAdmins)
-    private loginAdminsRepository: Repository<TblAdmins>,
+    private dataAdminsRepository: Repository<TblAdmins>,
     private jwtService: JwtService
   ) {}
   
@@ -33,34 +33,20 @@ export class DataUserService {
           .getMany();
 
       return data;
+  }
 
-    // console.log((await officer)!==null)
-    // console.log((await admin)!==null)
-    // console.log((await officer).password)
+  async getIsdataAdmin(search:string): Promise<Object> {
+    console.log( `%${``}%`)
+    const data = await this.dataAdminsRepository
+          .createQueryBuilder('admin')
+          .where('admin.first_name LIKE :firstName OR admin.last_name LIKE :lastname', 
+          { 
+            firstName: `%${search == undefined ?``:search}%`,
+            lastname: `%${search == undefined ?``:search}%`,
+          })
+          .orderBy('admin.id', 'DESC')
+          .getMany();
 
-    // if(logIn != null && ((await officer) !== null || (await admin) !== null )){
-
-    //   const pass:string = (await officer) !== null ? (await officer).password : (await admin).password;
-    //   const isMatch:boolean = await bcrypt.compare(logIn.password, pass);
-    //   if(isMatch){
-    //     const payload = { 
-    //       id: (await officer) !== null ? (await officer).id : (await admin).id, 
-    //       username: (await officer) !== null ? (await officer).username : (await admin).username,
-    //       password : (await officer) !== null ? (await officer).password : (await admin).password
-    //     };
-    //     return {
-    //       "statusCode": HttpStatus.OK,
-    //       "message":'Login Succeed',
-    //       "status": (await officer) !== null ? (await officer).status : (await admin).status,
-    //       "access_token" : await this.jwtService.signAsync(payload),
-    //     };
-
-    //   }else{
-    //     throw new HttpException('Login fail', HttpStatus.BAD_REQUEST);
-    //   }
-    // }else{
-    //   throw new HttpException('val null', HttpStatus.BAD_REQUEST);
-    // }
-    
+      return data;
   }
 }

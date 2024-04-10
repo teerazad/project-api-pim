@@ -19,6 +19,8 @@ import { TblMorbidities } from './entity/CoMorbidities.entity';
 import { TblAppointmentMedicine } from './entity/appointmentMedicine.entity';
 import { TblAppointmentDisease } from './entity/appointmentDisease.entity';
 import { TblAppointment } from './entity/appointment.entity';
+import { PimController } from './controllers/pim.controller';
+import { PatientService } from './services/pim/patient.service';
 
 
 @Module({
@@ -66,14 +68,16 @@ import { TblAppointment } from './entity/appointment.entity';
   ],
   controllers: [
     UsersController,
-    ViewsController
+    ViewsController,
+    PimController
   ],
   providers: [
     LoginService,
     AuthService,
     RegisterOfficerService,
     RegisterAdminService,
-    DataUserService
+    DataUserService,
+    PatientService
   ],
 })
 export class AppModule {}

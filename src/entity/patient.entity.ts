@@ -27,11 +27,11 @@ export class TblPatient {
   @Column({name:"hn",type:"varchar"})
   hn: string;
 
-  @Column({name:"phone_number",type:"varchar"})
+  @Column({name:"id_card",type:"varchar"})
   phoneNumber: string;
 
-  @Column({name:"right",type:"varchar"})
-  right: string;
+  @Column({name:"phone_number",type:"varchar"})
+  idcard: string;
 
   @Column({name:"weight",type:"varchar"})
   weight: string;

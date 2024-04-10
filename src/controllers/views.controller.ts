@@ -40,8 +40,16 @@ export class ViewsController {
 
   @Get('admin/page-drugs-form')
   @Render('admin/page-drugs-form')
-  getdrugs(): object {
+  getDrugs(): object {
     return null;
   }
+
+  @Get('admin/page-drughty-form')
+  @Render('admin/page-drughty-form')
+  getDrughty(): object {
+    return null;
+  }
+
+  
 }
 

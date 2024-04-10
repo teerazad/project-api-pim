@@ -33,7 +33,7 @@ export class RegisterOfficerService {
     const saltOrRounds = 10;
     const password = registerOfficer.password;
     const hash = await bcrypt.hash(password, saltOrRounds);
-    const admin: Promise<TblAdmins> = this.usersAdminsRepository.findOneBy({ username : "teero453" });
+    const admin: Promise<TblAdmins> = this.usersAdminsRepository.findOneBy({ username : registerOfficer.username });
     console.log(admin)
     try {
       if ((await admin)==null) {
