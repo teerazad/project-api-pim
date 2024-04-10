@@ -21,6 +21,7 @@ import { TblAppointmentDisease } from './entity/appointmentDisease.entity';
 import { TblAppointment } from './entity/appointment.entity';
 import { PimController } from './controllers/pim.controller';
 import { PatientService } from './services/pim/patient.service';
+import { DrugsService } from './services/pim/drugs.service';
 
 
 @Module({
@@ -77,7 +78,8 @@ import { PatientService } from './services/pim/patient.service';
     RegisterOfficerService,
     RegisterAdminService,
     DataUserService,
-    PatientService
+    PatientService,
+    DrugsService
   ],
 })
 export class AppModule {}

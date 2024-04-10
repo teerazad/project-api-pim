@@ -1,10 +1,10 @@
-import { Entity, Column, PrimaryColumn, OneToMany } from 'typeorm';
+import { Entity, Column, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { TblMedicineHtr } from './medicineHistory.entity';
 
 @Entity({name:"Drug",comment:"ตารางยา"})
 export class TblDrug {
 
-  @PrimaryColumn({name:"d_id",type:"varchar"})
+  @PrimaryGeneratedColumn("uuid",{name:"id"})
   dId: string;
 
   @Column({name:"name",type:"varchar"})
