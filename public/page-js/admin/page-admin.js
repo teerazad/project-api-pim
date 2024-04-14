@@ -36,6 +36,55 @@ axios('https://pim.phanomhospital.online/api/users/data/admin?search=')
     });
 
 
+function delAdmin(id) {
+    Swal.fire({
+        title: "คุณแน่ใจไหม?",
+        text: "คุณจะไม่สามารถย้อนกลับสิ่งนี้ได้!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "ใช่ ลบมัน!",
+        cancelButtonText: "ยกเลิก"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            axios.delete('https://pim.phanomhospital.online/api/users/del/admins/' + id)
+                .then(function (response) {
+                    console.log(response.data);
+                    if (response.data.statusCode == "200") {
+                        setTimeout(() => {
+                            window.location.href = 'page-admin'
+                        }, 1750)
+                        Swal.fire({
+                            title: "ลบเสร็จเรียบร้อย",
+                            text: "ข้อมูลถูกลบเเล้ว",
+                            icon: "success"
+                        });
+
+                    } else if (response.data.status == "400") {
+                        alert('login failed user')
+                    }
+                })
+                .catch(function (error) {
+
+                    if (error.response.data.message[0].message != undefined) {
+                        Swal.fire({
+                            icon: "error",
+                            title: error.response.data.message[0].message
+                        });
+                    } else {
+                        console.log(error.response.data)
+                        Swal.fire({
+                            icon: "error",
+                            title: error.response.data.message
+                        });
+                    }
+
+                });
+        }
+    });
+}
+
 setTimeout(() => {
     new gridjs.Grid({
         columns: ["ลำดับ", "ชื่อนามสกุล", "ชื่อผู้ใช้งาน", "ตำเเหน่ง",
@@ -44,7 +93,7 @@ setTimeout(() => {
                 formatter: (cell, row) => {
                     return h('button', {
                         className: 'btn btn-warning',
-                        onClick: () => alert(`Editing "${row.cells[0].data}" "${row.cells[1].data}"`)
+                        onClick: () => {localStorage.setItem('userAdmin', row.cells[2].data);window.location.href = 'page-admin-edit';}
                     }, 'Edit');
                 }
             },
@@ -53,7 +102,7 @@ setTimeout(() => {
                 formatter: (cell, row) => {
                     return h('button', {
                         className: 'btn btn-danger',
-                        onClick: () => alert(`Editing "${row.cells[0].data}" "${row.cells[1].data}"`)
+                        onClick: () => {delAdmin(row.cells[2].data);}
                     }, 'Delete');
                 }
             }

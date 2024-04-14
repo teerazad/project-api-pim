@@ -39,10 +39,11 @@ export class DataUserService {
     console.log( `%${``}%`)
     const data = await this.dataAdminsRepository
           .createQueryBuilder('admin')
-          .where('admin.first_name LIKE :firstName OR admin.last_name LIKE :lastname', 
+          .where('admin.first_name LIKE :firstName OR admin.last_name LIKE :lastname OR admin.username = :username', 
           { 
             firstName: `%${search == undefined ?``:search}%`,
             lastname: `%${search == undefined ?``:search}%`,
+            username: `${search == undefined ?``:search}`
           })
           .orderBy('admin.id', 'DESC')
           .getMany();

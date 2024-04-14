@@ -1,4 +1,4 @@
-import { Controller, Post, Body,Headers, Get, Param, Query } from '@nestjs/common';
+import { Controller, Post, Body,Headers, Get, Param, Query, Delete } from '@nestjs/common';
 import { LoginService } from '../services/users/login.service';
 import { RegisterOfficerService } from '../services/users/registerOfficers.service';
 import { RegisterOfficer } from '../models/req/registerOffice.models';
@@ -50,5 +50,10 @@ export class UsersController {
   createAdmins(@Body() registerAdmins: RegisterAdmins): Object{
     registerAdmins.id = uuid();
     return this.registerAdminService.register(registerAdmins);
+  }
+
+  @Delete("/del/admins/:id")
+  DelAdmins(@Param('id') id: string,@Headers('Authorization') headers: any): Object{
+    return this.registerAdminService.remove(id)
   }
 }

@@ -28,6 +28,13 @@ export class RegisterAdminService {
 //     await this.usersRepository.delete(id);
 //   }
 
+  async remove(id: string): Promise<Object> {
+    await this.usersAdminsRepository.delete({username:id});
+    return {
+      "statusCode": HttpStatus.OK,
+      "message": " Succeed",
+    };
+  }
   
   async register(registerAdmins: RegisterAdmins){
     const saltOrRounds = 10;

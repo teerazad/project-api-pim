@@ -32,6 +32,18 @@ export class ViewsController {
     return null;
   }
 
+  @Get('admin/page-admin-add')
+  @Render('admin/page-admin-register')
+  getRegisteAdmin(): object {
+    return null;
+  }
+
+  @Get('admin/page-admin-edit')
+  @Render('admin/page-admin-edit')
+  getEditAdmin(): object {
+    return null;
+  }
+
   @Get('admin/page-patient-form')
   @Render('admin/page-patient-form')
   getPatientForm(): object {
