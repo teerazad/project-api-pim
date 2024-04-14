@@ -18,6 +18,10 @@ export class PimController {
   createPatient(@Body() patient: Patient): Object{
     return this.patientService.save(patient);
   }
+  @Get("/data/patient")
+  getDataPatient(@Query('search') search,@Headers('Authorization') headers: any): Object{
+    return this.patientService.findAll();
+  }
 
   @Post("/save/drugs")
   createDrugs(@Body() drugs: Drugs): Object{

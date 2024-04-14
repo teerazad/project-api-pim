@@ -12,9 +12,9 @@ export class PatientService {
     private patientRepository: Repository<TblPatient>,
   ){}
 
-  //   findAll(): Promise<TblOfficers[]> {
-  //     return this.usersRepository.find();
-  //   }
+    findAll(): Promise<TblPatient[]> {
+      return this.patientRepository.find();
+    }
 
   //   findOne(id: string): Promise<TblOfficers | null> {
   //     return this.usersRepository.findOneBy({ id });
