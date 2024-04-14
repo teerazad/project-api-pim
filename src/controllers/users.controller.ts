@@ -43,13 +43,29 @@ export class UsersController {
   @Post("/register/officers")
   createOfficers(@Body() registerOfficer: RegisterOfficer): Object{
     registerOfficer.id = uuid();
-    return this.registerOfficerService.register(registerOfficer);;
+    return this.registerOfficerService.register(registerOfficer);
+  }
+
+  @Post("/update/officers")
+  updateOfficers(@Body() registerOfficer: RegisterOfficer): Object{
+    return this.registerOfficerService.update(registerOfficer);
+  }
+
+  
+  @Delete("/del/officers/:id")
+  DelOfficers(@Param('id') id: string,@Headers('Authorization') headers: any): Object{
+    return this.registerOfficerService.remove(id)
   }
 
   @Post("/register/admins")
   createAdmins(@Body() registerAdmins: RegisterAdmins): Object{
     registerAdmins.id = uuid();
     return this.registerAdminService.register(registerAdmins);
+  }
+
+  @Post("/update/admins")
+  updateAdmin(@Body() registerAdmins: RegisterAdmins): Object{
+    return this.registerAdminService.update(registerAdmins);
   }
 
   @Delete("/del/admins/:id")

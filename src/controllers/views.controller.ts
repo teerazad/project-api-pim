@@ -26,6 +26,12 @@ export class ViewsController {
     return null;
   }
 
+  @Get('admin/page-officer-edit')
+  @Render('admin/page-officer-edit')
+  getEditOfficer(): object {
+    return null;
+  }
+
   @Get('admin/page-admin')
   @Render('admin/page-admin')
   getAdmin(): object {

@@ -35,6 +35,38 @@ export class RegisterAdminService {
       "message": " Succeed",
     };
   }
+
+  async update(registerAdmins: RegisterAdmins): Promise<Object> {
+    try {
+      const saltOrRounds = 10;
+      const password = registerAdmins.password;
+      const hash = await bcrypt.hash(password, saltOrRounds);
+      await this.usersAdminsRepository
+        .createQueryBuilder()
+        .update(TblAdmins)
+        .set({
+          prefix:registerAdmins.prefix,
+          firstName: registerAdmins.firstName,
+          lastName: registerAdmins.lastName,
+          username: registerAdmins.username,
+          password: hash,
+          jobPosition: registerAdmins.jobPosition,
+          status : "officer"
+        })
+        .where("username = :username", { username: registerAdmins.username})
+        .execute()
+        return {
+          "statusCode": HttpStatus.OK,
+          "message": " Succeed",
+        };
+    } catch (error) {
+      return {
+        "statusCode": HttpStatus.BAD_REQUEST,
+        "message": error
+      }
+    }
+  }
+
   
   async register(registerAdmins: RegisterAdmins){
     const saltOrRounds = 10;

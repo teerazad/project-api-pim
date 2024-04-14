@@ -24,10 +24,11 @@ export class DataUserService {
     console.log( `%${``}%`)
     const data = await this.dataOfficersRepository
           .createQueryBuilder('office')
-          .where('office.first_name LIKE :firstName OR office.last_name LIKE :lastname', 
+          .where('office.first_name LIKE :firstName OR office.last_name LIKE :lastname OR office.username = :username', 
           { 
             firstName: `%${search == undefined ?``:search}%`,
             lastname: `%${search == undefined ?``:search}%`,
+            username: `${search == undefined ?``:search}`
           })
           .orderBy('office.id', 'DESC')
           .getMany();

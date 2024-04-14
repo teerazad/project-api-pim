@@ -14,7 +14,7 @@ export class RegisterOfficerService {
     private usersAdminsRepository: Repository<TblAdmins>,
     @InjectRepository(TblOfficers)
     private usersRepository: Repository<TblOfficers>,
-  ){}
+  ) { }
 
   //   findAll(): Promise<TblOfficers[]> {
   //     return this.usersRepository.find();
@@ -28,15 +28,54 @@ export class RegisterOfficerService {
   //     await this.usersRepository.delete(id);
   //   }
 
+  async remove(id: string): Promise<Object> {
+    await this.usersRepository.delete({ username: id });
+    return {
+      "statusCode": HttpStatus.OK,
+      "message": " Succeed",
+    };
+  }
+
+  async update(registerOfficer: RegisterOfficer): Promise<Object> {
+    try {
+      const saltOrRounds = 10;
+      const password = registerOfficer.password;
+      const hash = await bcrypt.hash(password, saltOrRounds);
+      await this.usersRepository
+        .createQueryBuilder()
+        .update(TblOfficers)
+        .set({
+          prefix:registerOfficer.prefix,
+          firstName: registerOfficer.firstName,
+          lastName: registerOfficer.lastName,
+          username: registerOfficer.username,
+          password: hash,
+          jobPosition: registerOfficer.jobPosition,
+          status : "officer"
+        })
+        .where("username = :username", { username: registerOfficer.username})
+        .execute()
+        return {
+          "statusCode": HttpStatus.OK,
+          "message": " Succeed",
+        };
+    } catch (error) {
+      return {
+        "statusCode": HttpStatus.BAD_REQUEST,
+        "message": error
+      }
+    }
+  }
+
 
   async register(registerOfficer: RegisterOfficer) {
     const saltOrRounds = 10;
     const password = registerOfficer.password;
     const hash = await bcrypt.hash(password, saltOrRounds);
-    const admin: Promise<TblAdmins> = this.usersAdminsRepository.findOneBy({ username : registerOfficer.username });
+    const admin: Promise<TblAdmins> = this.usersAdminsRepository.findOneBy({ username: registerOfficer.username });
     console.log(admin)
     try {
-      if ((await admin)==null) {
+      if ((await admin) == null) {
         await this.usersRepository
           .createQueryBuilder()
           .insert()
@@ -65,7 +104,7 @@ export class RegisterOfficerService {
         }
       }
     } catch (error) {
-      return{
+      return {
         "statusCode": HttpStatus.BAD_REQUEST,
         "message": "ชื่อผู้ใช้ซำ้กับในระบบกรุณาเปลียนชื่อผู้ใช้ !!!"
       }

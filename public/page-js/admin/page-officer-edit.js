@@ -1,11 +1,12 @@
-
-var element1 = document.getElementById('useradmin');
+var element1 = document.getElementById('userofficer');
 element1.classList.add("active");
 
 var element2 = document.getElementById('userall');
 element2.classList.add("active");
 
-axios('https://pim.phanomhospital.online/api/users/data/admin?search='+localStorage.getItem('userAdmin'))
+
+
+axios('https://pim.phanomhospital.online/api/users/data/officers?search='+localStorage.getItem('userOfficer'))
     .then(function (response) {
         console.log(response.data);
         (response.data).forEach((values, item) => {
@@ -46,12 +47,12 @@ axios('https://pim.phanomhospital.online/api/users/data/admin?search='+localStor
             }
             console.log(jsondata)
             
-            axios.post('https://pim.phanomhospital.online/api/users/update/admins', jsondata)
+            axios.post('https://pim.phanomhospital.online/api/users/update/officers', jsondata)
                 .then(function (response) {
                     console.log(response.data);
                     if (response.data.statusCode == "200") {
                         setTimeout(() => {
-                            window.location.href = 'page-admin'
+                            window.location.href = 'page-officer'
                         }, 1750)
                         Swal.fire({
                             icon: 'success',
@@ -81,4 +82,4 @@ axios('https://pim.phanomhospital.online/api/users/data/admin?search='+localStor
     
                 });
         });
-    })
+    });

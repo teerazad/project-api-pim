@@ -3,7 +3,7 @@ import { IsNotEmpty, IsString, IsStrongPassword, Matches, MinLength } from 'clas
 export class RegisterOfficer {
     id: string;
 
-    @IsNotEmpty()
+    @IsNotEmpty({ message: 'กรุณากรอกข้อมูลคำนำหน้า' })
     @IsString()
     prefix: string
 
