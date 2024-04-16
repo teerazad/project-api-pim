@@ -23,6 +23,7 @@ import { PimController } from './controllers/pim.controller';
 import { PatientService } from './services/pim/patient.service';
 import { DrugsService } from './services/pim/drugs.service';
 import { DrughtyService } from './services/pim/drughty.service';
+import { DiseaseService } from './services/pim/disease.service';
 
 
 @Module({
@@ -81,7 +82,8 @@ import { DrughtyService } from './services/pim/drughty.service';
     DataUserService,
     PatientService,
     DrugsService,
-    DrughtyService
+    DrughtyService,
+    DiseaseService
   ],
 })
 export class AppModule {}
