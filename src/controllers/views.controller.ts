@@ -73,6 +73,12 @@ export class ViewsController {
   getDisease(): object {
     return null;
   }
-  
+
+  @Get('admin/page-morbidities-form')
+  @Render('admin/page-morbidities-form')
+  getMorbidities(): object {
+    return null;
+  }
+
 }
 

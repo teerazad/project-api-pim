@@ -4,7 +4,7 @@ export class Disease {
 
     id: string;
 
-    @IsNotEmpty({ message: 'กรุณากรอกข้อมูลชื่อยา' })
+    @IsNotEmpty({ message: 'กรุณากรอกข้อมูลชื่อโรค' })
     @IsString()
     name: string;
     

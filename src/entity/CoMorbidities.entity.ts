@@ -8,14 +8,11 @@ export class TblMorbidities {
   @PrimaryColumn({name:"mor_id",type:"varchar"})
   morId: string
 
-  @Column({name:"name",type:"varchar"})
-  name: string
-
   @ManyToOne(() => TblPatient, (patient) => patient.napNo)
   @JoinColumn({name:"napNo"}) 
-  napNo:  TblPatient
+  napNo:string
 
   @ManyToOne(() => TblDisease, (disease) => disease.disId)
   @JoinColumn({name:"disId"}) 
-  disId:  TblDisease
+  disId:string
 }
