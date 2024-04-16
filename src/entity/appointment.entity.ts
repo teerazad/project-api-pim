@@ -9,10 +9,10 @@ export class TblAppointment {
   aitId: string;
 
   @Column({name:"ait_Dt",type:"datetime"})
-  aitDt: string
+  aitDt: string;
 
   @ManyToOne(() => TblPatient, (patient) => patient.napNo)
   @JoinColumn({name:"napNo"}) 
-  napNo:  TblPatient
+  napNo: string;
 
 }

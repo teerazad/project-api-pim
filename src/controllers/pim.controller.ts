@@ -11,6 +11,8 @@ import { Disease } from 'src/models/req/disease.models';
 import { DiseaseService } from 'src/services/pim/disease.service';
 import { MorbiditiesService } from 'src/services/pim/morbidities.service';
 import { Morbidities } from 'src/models/req/morbidities.models';
+import { Appointment } from 'src/models/req/appointment.models';
+import { AppointmentService } from 'src/services/pim/appointment.service';
 
 @Controller("api/pim")
 export class PimController {
@@ -19,7 +21,8 @@ export class PimController {
     private readonly drugsService:DrugsService,
     private readonly drugshtyService:DrughtyService,
     private readonly diseaseService:DiseaseService,
-    private readonly morbiditiesService:MorbiditiesService
+    private readonly morbiditiesService:MorbiditiesService,
+    private readonly appointmentService:AppointmentService
   ) {}
   
   @Post("/save/patient")
@@ -93,5 +96,21 @@ export class PimController {
   @Delete("/del/morbidities/:id")
   delMorbidities(@Param('id') id: string,@Headers('Authorization') headers: any):Object{
     return this.morbiditiesService.remove(id);
+  }
+
+  @Post("/save/appointment")
+  createAppointment(@Body()  appointment:Appointment): Object{
+    appointment.id = uuid();
+    return this.appointmentService.save(appointment);
+  }
+
+  @Get("/data/appointment")
+  getDataAppointment(@Query('search') search,@Headers('Authorization') headers: any):Object{
+    return this.appointmentService.findAll();
+  }
+
+  @Delete("/del/appointment/:id")
+  delAppointment(@Param('id') id: string,@Headers('Authorization') headers: any):Object{
+    return this.appointmentService.remove(id);
   }
 }

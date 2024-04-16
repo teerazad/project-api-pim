@@ -3,7 +3,7 @@ import { h } from "https://unpkg.com/gridjs?module";
 var element1 = document.getElementById('fromPatient');
 element1.classList.add("active");
 
-var element2 = document.getElementById('morbidities');
+var element2 = document.getElementById('appointment');
 element2.classList.add("active");
 
 const list = []
@@ -17,7 +17,7 @@ axios('https://pim.phanomhospital.online/api/pim/data/patient')
             listdata.push(values.napNo)
             listdata.push(values.prefix + ' ' + values.firstName + '  ' + values.lastName)
             list.push(listdata)
-            if(values.napNo==localStorage.getItem('patient')){
+            if (values.napNo == localStorage.getItem('patient')) {
                 document.getElementById('a1').value = values.napNo;
                 document.getElementById('a2').value = values.prefix + ' ' + values.firstName + '  ' + values.lastName
             }
@@ -86,47 +86,20 @@ setTimeout(() => {
     }).render(document.getElementById("wrapper"));
 }, 2000);
 
-axios('https://pim.phanomhospital.online/api/pim/data/disease?search=')
-    .then(function (response) {
-        console.log(response.data);
-        (response.data).forEach((values, item) => {
-            
-            const sel = document.getElementById("a3");
-            const opt = document.createElement("option");
-            opt.value = values.disId;
-            opt.text = values.name;
-            sel.add(opt, null);
-        })
-    })
-    .catch(function (error) {
-        if (error.response.data.message[0].message != undefined) {
-            Swal.fire({
-                icon: "error",
-                title: error.response.data.message[0].message
-            });
-        } else {
-            console.log(error.response.data)
-            Swal.fire({
-                icon: "error",
-                title: error.response.data.message
-            });
-        }
-    });
-
 Array.from(document.getElementsByClassName('btn btn-primary b')).forEach(function (el) {
     el.addEventListener('click', function (e) {
         const jsondata = {
             napNo: document.getElementById('a1').value,
-            disId: document.getElementById('a3').value
+            aitDt: document.getElementById('a3').value
         }
         console.log(jsondata)
 
-        axios.post('https://pim.phanomhospital.online/api/pim/save/morbidities', jsondata)
+        axios.post('https://pim.phanomhospital.online/api/pim/save/appointment', jsondata)
             .then(function (response) {
                 console.log(response.data);
                 if (response.data.statusCode == "200") {
                     setTimeout(() => {
-                        window.location.href = 'page-morbidities-form'
+                        window.location.href = 'page-appointment-form'
                         localStorage.removeItem('patient')
                     }, 1750)
                     Swal.fire({
@@ -162,16 +135,26 @@ Array.from(document.getElementsByClassName('btn btn-primary b')).forEach(functio
 
 const list2 = []
 
-axios('https://pim.phanomhospital.online/api/pim/data/morbidities?search=')
+axios('https://pim.phanomhospital.online/api/pim/data/appointment?search=')
     .then(function (response) {
         console.log(response.data);
         (response.data).forEach((values, item) => {
             var listdata = []
             listdata.push(item + 1)
-            listdata.push(values.morId)
+            listdata.push(values.aitId)
             listdata.push(values.napNo.napNo)
             listdata.push((values.napNo.prefix + ' ' + values.napNo.firstName + '  ' + values.napNo.lastName))
-            listdata.push(values.disId.name)
+            const date = new Date(Date.parse(values.aitDt))
+
+            const result = date.toLocaleDateString('th-TH', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                weekday: 'long',
+                hour:'numeric',
+                minute:'numeric'
+            })
+            listdata.push(result)
             list2.push(listdata)
         })
     })
@@ -190,7 +173,7 @@ axios('https://pim.phanomhospital.online/api/pim/data/morbidities?search=')
         }
     });
 
-function delDrug(id){
+function delDrug(id) {
     Swal.fire({
         title: "คุณแน่ใจไหม?",
         text: "คุณจะไม่สามารถย้อนกลับสิ่งนี้ได้!",
@@ -199,48 +182,48 @@ function delDrug(id){
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "ใช่ ลบมัน!",
-        cancelButtonText:"ยกเลิก"
-      }).then((result) => {
+        cancelButtonText: "ยกเลิก"
+    }).then((result) => {
         if (result.isConfirmed) {
-            axios.delete('https://pim.phanomhospital.online/api/pim/del/morbidities/'+id)
-            .then(function (response) {
-                console.log(response.data);
-                if (response.data.statusCode == "200") {
-                    setTimeout(() => {
-                        window.location.href = 'page-morbidities-form'
-                    }, 1750)
-                    Swal.fire({
-                        title: "ลบเสร็จเรียบร้อย",
-                        text: "ข้อมูลถูกลบเเล้ว",
-                        icon: "success"
-                      });
+            axios.delete('https://pim.phanomhospital.online/api/pim/del/appointment/' + id)
+                .then(function (response) {
+                    console.log(response.data);
+                    if (response.data.statusCode == "200") {
+                        setTimeout(() => {
+                            window.location.href = 'page-appointment-form'
+                        }, 1750)
+                        Swal.fire({
+                            title: "ลบเสร็จเรียบร้อย",
+                            text: "ข้อมูลถูกลบเเล้ว",
+                            icon: "success"
+                        });
 
-                } else if(response.data.status=="400") {
-                    alert('login failed user')
-                }
-            })
-            .catch(function (error) {
-                
-                if(error.response.data.message[0].message != undefined){
-                    Swal.fire({
-                        icon: "error",
-                        title: error.response.data.message[0].message
-                    });
-                }else{
-                    console.log(error.response.data)
-                    Swal.fire({
-                        icon: "error",
-                        title: error.response.data.message
-                    });
-                }
+                    } else if (response.data.status == "400") {
+                        alert('login failed user')
+                    }
+                })
+                .catch(function (error) {
 
-            });
+                    if (error.response.data.message[0].message != undefined) {
+                        Swal.fire({
+                            icon: "error",
+                            title: error.response.data.message[0].message
+                        });
+                    } else {
+                        console.log(error.response.data)
+                        Swal.fire({
+                            icon: "error",
+                            title: error.response.data.message
+                        });
+                    }
+
+                });
         }
-      });
+    });
 }
 setTimeout(() => {
     new gridjs.Grid({
-        columns: ["ลำดับ","ID" , "รหัสผู้ป่วย", "ชื่อนามสกุล","ชื่อโรค",
+        columns: ["ลำดับ", "ID", "รหัสผู้ป่วย", "ชื่อนามสกุล", "เวลานัดตรวจโรค",
             {
                 name: 'ลบ',
                 formatter: (cell, row) => {

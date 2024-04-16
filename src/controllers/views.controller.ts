@@ -80,5 +80,11 @@ export class ViewsController {
     return null;
   }
 
+  @Get('admin/page-appointment-form')
+  @Render('admin/page-appointment-form')
+  getAppointment(): object {
+    return null;
+  }
+
 }
 

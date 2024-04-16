@@ -3,20 +3,21 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TblMorbidities } from 'src/entity/CoMorbidities.entity';
 import { Morbidities } from 'src/models/req/morbidities.models';
+import { TblAppointment } from 'src/entity/appointment.entity';
+import { Appointment } from 'src/models/req/appointment.models';
 
 @Injectable()
-export class MorbiditiesService {
+export class AppointmentService {
 
   constructor(
-    @InjectRepository(TblMorbidities)
-    private morbiditiesRepository: Repository<TblMorbidities>,
+    @InjectRepository(TblAppointment)
+    private appointmentRepository: Repository<TblAppointment>,
   ){}
 
   async findAll(): Promise<Object> {
-      const user = await this.morbiditiesRepository
-                        .createQueryBuilder("morbidities")
-                        .leftJoinAndSelect("morbidities.napNo", "napNo")
-                        .leftJoinAndSelect("morbidities.disId", "disId")
+      const user = await this.appointmentRepository
+                        .createQueryBuilder("appointment")
+                        .leftJoinAndSelect("appointment.napNo", "napNo")
                         .getMany()
       return user;
     }
@@ -26,7 +27,7 @@ export class MorbiditiesService {
   //   }
 
     async remove(id: string): Promise<Object> {
-      await this.morbiditiesRepository.delete(id);
+      await this.appointmentRepository.delete(id);
       return {
         "statusCode": HttpStatus.OK,
         "message": " Succeed",
@@ -34,17 +35,17 @@ export class MorbiditiesService {
     }
 
 
-  async save(morbidities:Morbidities) {
+  async save(appointment:Appointment) {
     try {
-        await this.morbiditiesRepository
+        await this.appointmentRepository
           .createQueryBuilder()
           .insert()
-          .into(TblMorbidities)
+          .into(TblAppointment)
           .values([
             {
-              morId:morbidities.id,
-              napNo:morbidities.napNo,
-              disId:morbidities.disId
+              aitId:appointment.id,
+              napNo:appointment.napNo,
+              aitDt:appointment.aitDt
             }
           ])
           .execute()
