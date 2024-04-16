@@ -1,4 +1,5 @@
 import { Entity, Column, PrimaryColumn, OneToMany } from 'typeorm';
+import { TblMedicineHtr } from './medicineHistory.entity';
 
 @Entity({name:"patient",comment:"ตารางผู้ป่วย"})
 export class TblPatient {
@@ -47,4 +48,7 @@ export class TblPatient {
 
   @Column({name:"ucep_name",type:"varchar"})
   name: string;
+
+  @OneToMany((type) => TblMedicineHtr, (drughty) => drughty.napNo)
+  photos: TblMedicineHtr[]
 }

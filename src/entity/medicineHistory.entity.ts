@@ -11,9 +11,9 @@ export class TblMedicineHtr {
 
   @ManyToOne(() => TblPatient, (patient) => patient.napNo)
   @JoinColumn({name:"napNo"}) 
-  napNo:  TblPatient
+  napNo: string;
 
   @ManyToOne(() => TblDrug, (drug) => drug.dId)
   @JoinColumn({name:"dId"}) 
-  dId:  TblDrug
+  dId: string;
 }

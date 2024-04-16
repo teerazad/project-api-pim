@@ -22,6 +22,7 @@ import { TblAppointment } from './entity/appointment.entity';
 import { PimController } from './controllers/pim.controller';
 import { PatientService } from './services/pim/patient.service';
 import { DrugsService } from './services/pim/drugs.service';
+import { DrughtyService } from './services/pim/drughty.service';
 
 
 @Module({
@@ -46,7 +47,7 @@ import { DrugsService } from './services/pim/drugs.service';
         TblAppointment
       ],
       synchronize: true,
-      dropSchema: true,
+      // dropSchema: true
     }),
     JwtModule.register({
       global: true,
@@ -79,7 +80,8 @@ import { DrugsService } from './services/pim/drugs.service';
     RegisterAdminService,
     DataUserService,
     PatientService,
-    DrugsService
+    DrugsService,
+    DrughtyService
   ],
 })
 export class AppModule {}

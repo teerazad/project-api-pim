@@ -133,7 +133,6 @@ Array.from(document.getElementsByClassName('btn btn-primary')).forEach(function 
                 if (response.data.statusCode == "200") {
                     setTimeout(() => {
                         window.location.href = 'page-drugs-form'
-                        localStorage.setItem('token', response.data.access_token);
                     }, 1750)
                     Swal.fire({
                         icon: 'success',

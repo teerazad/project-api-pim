@@ -5,13 +5,15 @@ import { PatientService } from 'src/services/pim/patient.service';
 import { Patient } from 'src/models/req/patient.models';
 import { Drugs } from 'src/models/req/drugs.models';
 import { DrugsService } from 'src/services/pim/drugs.service';
+import { Drughty } from 'src/models/req/drughty.models';
+import { DrughtyService } from 'src/services/pim/drughty.service';
 
 @Controller("api/pim")
 export class PimController {
   constructor(
     private readonly patientService:PatientService,
     private readonly drugsService:DrugsService,
-    private readonly dataUserService:DataUserService
+    private readonly drugshtyService:DrughtyService
   ) {}
   
   @Post("/save/patient")
@@ -39,8 +41,19 @@ export class PimController {
     return this.drugsService.remove(id);
   }
 
-  @Get("/data/officers")
-  getDataOfficers(@Query('search') search,@Headers('Authorization') headers: any):Object{
-    return this.dataUserService.getIsdataOffice(search);
+  @Post("/save/drughty")
+  createDrughty(@Body()  drughty: Drughty): Object{
+    drughty.id = uuid();
+    return this.drugshtyService.save(drughty);
+  }
+
+  @Get("/data/drughty")
+  getDataDrughty(@Query('search') search,@Headers('Authorization') headers: any):Object{
+    return this.drugshtyService.findAll();
+  }
+
+  @Delete("/del/drughty/:id")
+  delDrughty(@Param('id') id: string,@Headers('Authorization') headers: any):Object{
+    return this.drugshtyService.remove(id);
   }
 }

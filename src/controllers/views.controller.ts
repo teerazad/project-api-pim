@@ -67,7 +67,12 @@ export class ViewsController {
   getDrughty(): object {
     return null;
   }
-
+  
+  @Get('admin/page-disease-form')
+  @Render('admin/page-disease-form')
+  getDisease(): object {
+    return null;
+  }
   
 }
 
