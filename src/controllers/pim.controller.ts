@@ -113,4 +113,20 @@ export class PimController {
   delAppointment(@Param('id') id: string,@Headers('Authorization') headers: any):Object{
     return this.appointmentService.remove(id);
   }
+
+  @Post("/save/appointmentDisease")
+  createAppointmentDisease(@Body()  appointment:Appointment): Object{
+    appointment.id = uuid();
+    return this.appointmentService.save(appointment);
+  }
+
+  @Get("/data/appointmentDisease")
+  getDataAppointmentDisease(@Query('search') search,@Headers('Authorization') headers: any):Object{
+    return this.appointmentService.findAll();
+  }
+
+  @Delete("/del/appointmentDisease/:id")
+  delAppointmentDisease(@Param('id') id: string,@Headers('Authorization') headers: any):Object{
+    return this.appointmentService.remove(id);
+  }
 }

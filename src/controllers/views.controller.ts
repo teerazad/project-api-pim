@@ -86,5 +86,11 @@ export class ViewsController {
     return null;
   }
 
+  @Get('admin/page-appointmentDisease-form')
+  @Render('admin/page-appointmentDisease-form')
+  getAppointmentDisease(): object {
+    return null;
+  }
+
 }
 

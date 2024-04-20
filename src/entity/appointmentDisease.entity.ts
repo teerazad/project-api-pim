@@ -11,17 +11,17 @@ export class TblAppointmentDisease {
   @Column({name:"atd_Dt",type:"datetime"})
   aitDt: string;
 
-  @Column({name:"checkType",type:"datetime"})
-  checkType: string;
-
-  @Column({name:"type",type:"datetime"})
+  @Column({name:"type",type:"varchar"})
   type: string;
 
-  @Column({name:"other",type:"datetime"})
+  @Column({name:"checkType",type:"varchar"})
+  checkType: string;
+
+  @Column({name:"other",type:"text"})
   other: string;
 
   @ManyToOne(() => TblPatient, (patient) => patient.napNo)
   @JoinColumn({name:"napNo"})
-  napNo:  TblPatient;
+  napNo: string;
 
 }

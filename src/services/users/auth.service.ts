@@ -35,11 +35,13 @@ export class AuthService {
             const officer: Promise<TblOfficers | null> = this.loginOfficersRepository.findOneBy({username: (await payload).username });
             const admin: Promise<TblAdmins | null> = this.loginAdminsRepository.findOneBy({ id:(await payload).id,username: payload.username });
             
-            if ((await payload)!== null && ((await officer) !== null || (await officer) !== null)) {
+            if ((await payload)!== null && ((await officer) !== null || (await admin) !== null)) {
                 const pass: string = (await officer) !== null ? (await officer).password : (await admin).password;
                 if ((await payload).password === pass) {
                     return {
                         "statusCode": HttpStatus.OK,
+                        "status":(await officer) !== null ? (await officer).status : (await admin).status,
+                        "name":(await officer) !== null ? (await officer).prefix+' '+(await officer).firstName +' '+(await officer).lastName : (await admin).prefix+' '+(await admin).firstName+' '+(await admin).lastName,
                         "message": 'Auth Succeed',
                     };
                 } else {
