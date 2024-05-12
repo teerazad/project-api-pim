@@ -26,6 +26,7 @@ import { DrughtyService } from './services/pim/drughty.service';
 import { DiseaseService } from './services/pim/disease.service';
 import { MorbiditiesService } from './services/pim/morbidities.service';
 import { AppointmentService } from './services/pim/appointment.service';
+import { AppointmentDiseaseService } from './services/pim/appointmentDisease.service';
 
 
 @Module({
@@ -87,7 +88,8 @@ import { AppointmentService } from './services/pim/appointment.service';
     DrughtyService,
     DiseaseService,
     MorbiditiesService,
-    AppointmentService
+    AppointmentService,
+    AppointmentDiseaseService
   ],
 })
 export class AppModule {}

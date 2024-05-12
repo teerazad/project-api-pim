@@ -43,19 +43,23 @@
                           <label class="form-label" for="a3" style="font-size: medium; font-weight: bold;">วันตรวจโรค</label>
                           <input class="form-control" type="datetime-local" value="" id="a3" />
                         </div>
+
+                        <label for="a4" class="form-label font-size medium" style="font-size: medium; font-weight: bold;">วิธีการตรวจ</label>
+                        <select class="form-select" id="a4" aria-label="Default select example">
+                          <option selected value="" disabled>กรุณาเลือกวิธีการตรวจ</option>
+                          <option value="vl">vl</option>
+                          <option value="cd4">cd4</option>
+                          <option value="x-rey">x-rey</option>
+                        </select>
                         <div class="mb-3">
-                          <label class="form-label" for="a4" style="font-size: medium; font-weight: bold;">วิธีการตรวจ</label>
-                          <input class="form-control" type="text" placeholder="วิธีการตรวจ ..." id="a4" />
-                        </div>
-                        <div class="mb-3">
-                          <label class="form-label" for="a5" style="font-size: medium; font-weight: bold;">ผลตรวจ</label>
-                          <textarea class="form-control" id="a5" rows="3"></textarea>
+                          <label class="form-label" for="a5"style="font-size: medium; font-weight: bold;">ผลตรวจ</label>
+                          <input type="number" class="form-control" id="a5" placeholder="ผลตรวจ ..." />
                         </div>
                         <div class="mb-3">
                           <label class="form-label" for="a6" style="font-size: medium; font-weight: bold;">รายละเอียด</label>
                           <textarea class="form-control" id="a6" rows="5"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">ยืนยัน</button>
+                        <button type="submit" class="btn btn-primary b">ยืนยัน</button>
                     </div>
                   </div>
                   <div class="card">

@@ -10,6 +10,6 @@ export class TblDrug {
   @Column({name:"name",type:"varchar"})
   name: string
 
-  @OneToMany(() => TblMedicineHtr, (medicineHtr) => medicineHtr.mhId)
-  checkRights: TblMedicineHtr[]
+  @OneToMany(() => TblMedicineHtr, (medicineHtr) => medicineHtr.dId)
+  drug: TblMedicineHtr[]
 }

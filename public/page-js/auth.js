@@ -63,3 +63,19 @@ fetch('https://pim.phanomhospital.online/api/users/auth', {
             text: 'กรุณากรอก User เเละ รหัสผ่านใหม่ !!!!!'
         })
 });
+
+
+Array.from(document.getElementsByClassName('btn btn-danger a')).forEach(function (el) {
+    el.addEventListener('click', function (e) {
+        setTimeout(() => {
+            window.location = "/login"
+            localStorage.removeItem('token')
+        }, 1000);
+        Swal.fire({
+            icon: 'error',
+            title: 'Login Out',
+            showConfirmButton: false,
+            text: 'กรุณากรอก User เเละ รหัสผ่านใหม่ !!!!!'
+        })
+    })
+});

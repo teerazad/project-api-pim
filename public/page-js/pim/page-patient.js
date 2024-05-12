@@ -22,7 +22,12 @@ Array.from(document.getElementsByClassName('btn btn-primary')).forEach(function 
             height: document.getElementById('a12').value,
             job: document.getElementById('a13').value,
             ucepId: document.getElementById('a14').value,
-            name: document.getElementById('a15').value
+            name: document.getElementById('a15').value,
+            village: document.getElementById('a16').value,
+            place: document.getElementById('a17').value,
+            canton: document.getElementById('a18').value,
+            province: document.getElementById('a19').value,
+            postalCode: document.getElementById('a20').value
         }
         console.log(jsondata)
         

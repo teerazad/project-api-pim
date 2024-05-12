@@ -65,5 +65,28 @@ export class Patient {
     @Matches(/^[\u0E00-\u0E7F]+$/,{ message: 'กรุณากรอกชื่อเป็นภาษาไทย' })
     @IsString()
     name: string;
-    
+
+    @IsNotEmpty({ message: 'กรุณากรอกข้อมูลหมู่บ้าน' })
+    @IsString()
+    village: string;
+  
+    @IsNotEmpty({ message: 'กรุณากรอกข้อมูลตำบล' })
+    @Matches(/^[\u0E00-\u0E7F]+$/,{ message: 'กรุณากรอกชื่อตำบลเป็นภาษาไทย' })
+    @IsString()
+    place: string;
+  
+    @IsNotEmpty({ message: 'กรุณากรอกข้อมูลอำเภอ' })
+    @Matches(/^[\u0E00-\u0E7F]+$/,{ message: 'กรุณากรอกชื่ออำเภอเป็นภาษาไทย' })
+    @IsString()
+    canton: string;
+  
+    @IsNotEmpty({ message: 'กรุณากรอกข้อมูลจังหวัด' })
+    @Matches(/^[\u0E00-\u0E7F]+$/,{ message: 'กรุณากรอกชื่อจังหวัดเป็นภาษาไทย' })
+    @IsString()
+    province: string;
+  
+    @IsNotEmpty({ message: 'กรุณากรอกข้อมูลรหัสไปรษณี' })
+    @Matches(/^[0-9]+$/,{ message: 'กรุณากรอกข้อมูลรหัสไปรษณีตัวเลข' })
+    postalCode: string;
+  
 }

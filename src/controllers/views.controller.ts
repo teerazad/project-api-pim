@@ -92,5 +92,11 @@ export class ViewsController {
     return null;
   }
 
+  @Get('admin/page-patient')
+  @Render('admin/page-patient')
+  getpatient(): object {
+    return null;
+  }
+
 }
 

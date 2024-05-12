@@ -14,7 +14,7 @@ export class TblAppointmentDisease {
   @Column({name:"type",type:"varchar"})
   type: string;
 
-  @Column({name:"checkType",type:"varchar"})
+  @Column({name:"checkType",type:"int"})
   checkType: string;
 
   @Column({name:"other",type:"text"})

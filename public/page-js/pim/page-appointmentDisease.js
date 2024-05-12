@@ -90,11 +90,14 @@ Array.from(document.getElementsByClassName('btn btn-primary b')).forEach(functio
     el.addEventListener('click', function (e) {
         const jsondata = {
             napNo: document.getElementById('a1').value,
-            aitDt: document.getElementById('a3').value
+            aitDt: document.getElementById('a3').value,
+            type: document.getElementById('a4').value,
+            checkType: document.getElementById('a5').value,
+            other: document.getElementById('a6').value
         }
         console.log(jsondata)
 
-        axios.post('https://pim.phanomhospital.online/api/pim/save/appointment', jsondata)
+        axios.post('https://pim.phanomhospital.online/api/pim/save/appointmentDisease', jsondata)
             .then(function (response) {
                 console.log(response.data);
                 if (response.data.statusCode == "200") {

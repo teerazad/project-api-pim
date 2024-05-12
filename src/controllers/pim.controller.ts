@@ -1,6 +1,5 @@
-import { Controller, Post, Body,Headers, Get, Query, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Body,Headers, Get, Query, Param, Delete, Res, StreamableFile, Header } from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
-import { DataUserService } from 'src/services/users/dataUser.service';
 import { PatientService } from 'src/services/pim/patient.service';
 import { Patient } from 'src/models/req/patient.models';
 import { Drugs } from 'src/models/req/drugs.models';
@@ -13,6 +12,12 @@ import { MorbiditiesService } from 'src/services/pim/morbidities.service';
 import { Morbidities } from 'src/models/req/morbidities.models';
 import { Appointment } from 'src/models/req/appointment.models';
 import { AppointmentService } from 'src/services/pim/appointment.service';
+import { createReadStream } from 'fs';
+const mime = require('mime')
+const path = require('path')
+import { join } from 'path';
+import { AppointmentDiseaseService } from 'src/services/pim/appointmentDisease.service';
+import { AppointmentDisease } from 'src/models/req/appointmentDisease.models';
 
 @Controller("api/pim")
 export class PimController {
@@ -22,16 +27,30 @@ export class PimController {
     private readonly drugshtyService:DrughtyService,
     private readonly diseaseService:DiseaseService,
     private readonly morbiditiesService:MorbiditiesService,
-    private readonly appointmentService:AppointmentService
+    private readonly appointmentService:AppointmentService,
+    private readonly appointmentDiseaseService:AppointmentDiseaseService
   ) {}
   
   @Post("/save/patient")
   createPatient(@Body() patient: Patient): Object{
     return this.patientService.save(patient);
   }
+
   @Get("/data/patient")
   getDataPatient(@Query('search') search,@Headers('Authorization') headers: any): Object{
+    this.patientService.patientExcel()
     return this.patientService.findAll();
+  }
+
+  @Get("/data/patient/excel")
+  @Header('Content-Type','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+  @Header('Content-disposition', 'attachment; filename="pim.xlsx"')
+  getDataPatientExcel(@Query('search') search,@Headers('Authorization') headers: any): StreamableFile{
+    if(this.patientService.patientExcel()){
+      const file = createReadStream(join(process.cwd(), 'public/excel/Excel.xlsx'));
+      console.log(file)
+      return new StreamableFile(file);
+    }
   }
 
   @Post("/save/drugs")
@@ -115,9 +134,9 @@ export class PimController {
   }
 
   @Post("/save/appointmentDisease")
-  createAppointmentDisease(@Body()  appointment:Appointment): Object{
-    appointment.id = uuid();
-    return this.appointmentService.save(appointment);
+  createAppointmentDisease(@Body()  appointmentDisease:AppointmentDisease): Object{
+    appointmentDisease.id = uuid();
+    return this.appointmentDiseaseService.save(appointmentDisease);
   }
 
   @Get("/data/appointmentDisease")
