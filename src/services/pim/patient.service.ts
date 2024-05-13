@@ -5,6 +5,9 @@ import { Patient } from 'src/models/req/patient.models';
 import { TblPatient } from 'src/entity/patient.entity';
 import { TblMedicineHtr } from 'src/entity/medicineHistory.entity';
 import { join } from 'path';
+import { TblMorbidities } from 'src/entity/CoMorbidities.entity';
+import { TblAppointmentDisease } from 'src/entity/appointmentDisease.entity';
+import { TblAppointment } from 'src/entity/appointment.entity';
 var xl = require('excel4node');
 const fs = require('fs').promises;
 
@@ -16,6 +19,12 @@ export class PatientService {
     private patientRepository: Repository<TblPatient>,
     @InjectRepository(TblMedicineHtr)
     private drughtyRepository: Repository<TblMedicineHtr>,
+    @InjectRepository(TblMorbidities)
+    private morbiditiesRepository: Repository<TblMorbidities>,
+    @InjectRepository(TblAppointmentDisease)
+    private appointmentDiseaseRepository: Repository<TblAppointmentDisease>,
+    @InjectRepository(TblAppointment)
+    private appointmentRepository: Repository<TblAppointment>,
   ) { }
 
   async findAll(): Promise<TblPatient[]> {
@@ -34,9 +43,19 @@ export class PatientService {
   //     return this.usersRepository.findOneBy({ id });
   //   }
 
-  //   async remove(id: string): Promise<void> {
-  //     await this.usersRepository.delete(id);
-  //   }
+    async remove(id: string): Promise<Object> {
+      await this.appointmentRepository.delete({napNo:id});
+      await this.appointmentDiseaseRepository.delete({napNo:id});
+      await this.morbiditiesRepository.delete({napNo:id});
+      await this.drughtyRepository.delete({napNo:id});
+      await this.patientRepository.delete({napNo:id});
+      
+      return {
+        "statusCode": HttpStatus.OK,
+        "message": " Succeed",
+      };
+
+    }
 
 
   async save(patient: Patient) {

@@ -48,12 +48,12 @@ function delAdmin(id) {
         cancelButtonText: "ยกเลิก"
     }).then((result) => {
         if (result.isConfirmed) {
-            axios.delete('https://pim.phanomhospital.online/api/users/del/admins/' + id)
+            axios.delete('https://pim.phanomhospital.online/api/pim/del/patient/'+id)
                 .then(function (response) {
                     console.log(response.data);
                     if (response.data.statusCode == "200") {
                         setTimeout(() => {
-                            window.location.href = 'page-admin'
+                            window.location.href = 'page-patient'
                         }, 1750)
                         Swal.fire({
                             title: "ลบเสร็จเรียบร้อย",

@@ -44,6 +44,11 @@ export class PimController {
     return this.patientService.findAll();
   }
 
+  @Delete("/del/patient/:id")
+  delPatient(@Param('id') id: string,@Headers('Authorization') headers: any):Object{
+    return this.patientService.remove(id);
+  }
+
   @Get("/data/patient/excel")
   @Header('Content-Type','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
   @Header('Content-disposition', 'attachment; filename="pim.xlsx"')
