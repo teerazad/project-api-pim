@@ -33,10 +33,10 @@ axios('https://pim.phanomhospital.online/api/pim/data/patient?search=')
         if(values2.type=='vl'){
           if(values2.checkType<=50){
             listVLN.push(values.napNo)
-          }else if (values.appointmentDisease.checkType<=1000){
+          }else if (values2.checkType<=1000){
             listVLW.push(values.napNo)
           }else if (values2.checkType>=1001){
-            istVLD.push(values.napNo)
+            listVLD.push(values.napNo)
           }
         }
       })
@@ -103,7 +103,7 @@ setTimeout(() => {
     }]
   };
 
-  const labels = ['พนม', 'ต้นยวน', 'คลองศก', 'พลูเถื่อน', 'คลองชะอุ่น'];
+  const labels = ['พนม', 'ต้นยวน', 'คลองศก', 'พลูเถื่อน', 'พังกาญจน์','คลองชะอุ่น'];
   const data = {
     labels: labels,
     datasets: [{
@@ -211,16 +211,16 @@ setTimeout(() => {
       labels: labels3,
       datasets: [{
         label: "ข้อมูล VL ของผู้ป่วยเเต่ละประเภท",
-        data: [listVLN.length, listVLW.length,listVLD.length],
+        data: [listVLN.length, listVLW.length, listVLD.length],
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
           'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 205, 86, 0.2)'
+          'rgba(255, 99, 132, 0.2)'
         ],
         borderColor: [
-          'rgb(255, 99, 132)',
+          'rgb(75, 192, 192)',
           'rgb(255, 159, 64)',
-          'rgb(255, 205, 86)'
+          'rgb(255, 99, 132)',
         ],
         borderWidth: 1
       }]
