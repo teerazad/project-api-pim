@@ -102,7 +102,7 @@ Array.from(document.getElementsByClassName('btn btn-primary b')).forEach(functio
                 console.log(response.data);
                 if (response.data.statusCode == "200") {
                     setTimeout(() => {
-                        window.location.href = 'page-appointment-form'
+                        window.location.href = 'page-appointmentDisease-form'
                         localStorage.removeItem('patient')
                     }, 1750)
                     Swal.fire({
@@ -138,7 +138,7 @@ Array.from(document.getElementsByClassName('btn btn-primary b')).forEach(functio
 
 const list2 = []
 
-axios('https://pim.phanomhospital.online/api/pim/data/appointment?search=')
+axios('https://pim.phanomhospital.online/api/pim/data/appointmentDisease?search=')
     .then(function (response) {
         console.log(response.data);
         (response.data).forEach((values, item) => {
@@ -158,6 +158,10 @@ axios('https://pim.phanomhospital.online/api/pim/data/appointment?search=')
                 minute:'numeric'
             })
             listdata.push(result)
+            listdata.push(values.type)
+            listdata.push(values.checkType)
+            listdata.push(values.other)
+
             list2.push(listdata)
         })
     })
@@ -188,12 +192,12 @@ function delDrug(id) {
         cancelButtonText: "ยกเลิก"
     }).then((result) => {
         if (result.isConfirmed) {
-            axios.delete('https://pim.phanomhospital.online/api/pim/del/appointment/' + id)
+            axios.delete('https://pim.phanomhospital.online/api/pim/del/appointmentDisease/' + id)
                 .then(function (response) {
                     console.log(response.data);
                     if (response.data.statusCode == "200") {
                         setTimeout(() => {
-                            window.location.href = 'page-appointment-form'
+                            window.location.href = 'page-appointmentDisease-form'
                         }, 1750)
                         Swal.fire({
                             title: "ลบเสร็จเรียบร้อย",
@@ -226,7 +230,7 @@ function delDrug(id) {
 }
 setTimeout(() => {
     new gridjs.Grid({
-        columns: ["ลำดับ", "ID", "รหัสผู้ป่วย", "ชื่อนามสกุล", "เวลานัดตรวจโรค",
+        columns: ["ลำดับ", "ID", "รหัสผู้ป่วย", "ชื่อนามสกุล", "เวลาตรวจโรค","วิธีตรวจ","ค่าในตรวจ","รายละเอียด",
             {
                 name: 'ลบ',
                 formatter: (cell, row) => {

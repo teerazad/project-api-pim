@@ -33,36 +33,27 @@ axios('https://pim.phanomhospital.online/api/pim/data/patient?search=')
         if(values2.type=='vl'){
           if(values2.checkType<=50){
             listVLN.push(values.napNo)
-          }else if (values2.checkType>=51 || values.appointmentDisease.checkType<=1000){
+          }else if (values.appointmentDisease.checkType<=1000){
             listVLW.push(values.napNo)
-          }else if (values2.checkType>=1000){
+          }else if (values2.checkType>=1001){
             istVLD.push(values.napNo)
           }
         }
       })
-
-      if (values.village == 1) {
+      
+      if (values.place == 'พนม') {
         listV1.push(values.napNo)
-      } else if (values.village == 2) {
+      } else if (values.place == 'ต้นยวน') {
         listV2.push(values.napNo)
-      } else if (values.village == 3) {
+      } else if (values.place == 'คลองศก') {
         listV3.push(values.napNo)
-      } else if (values.village == 4) {
+      } else if (values.place == 'พลูเถื่อน') {
         listV4.push(values.napNo)
-      } else if (values.village == 5) {
+      } else if (values.place == 'พังกาญจน์') {
         listV5.push(values.napNo)
-      } else if (values.village == 6) {
+      } else if (values.place == 'คลองชะอุ่น') {
         listV6.push(values.napNo)
-      } else if (values.village == 7) {
-        listV7.push(values.napNo)
-      } else if (values.village == 8) {
-        listV8.push(values.napNo)
-      } else if (values.village == 9) {
-        listV9.push(values.napNo)
-      } else if (values.village == 10) {
-        listV10.push(values.napNo)
       }
-
 
     })
   })
@@ -112,7 +103,7 @@ setTimeout(() => {
     }]
   };
 
-  const labels = ['หมู่บ้านที่ 1', 'หมู่บ้านที่ 2', 'หมู่บ้านที่ 3', 'หมู่บ้านที่ 4', 'หมู่บ้านที่ 5', 'หมู่บ้านที่ 6', 'หมู่บ้านที่ 7', 'หมู่บ้านที่ 8', 'หมู่บ้านที่ 9', 'หมู่บ้านที่ 10'];
+  const labels = ['พนม', 'ต้นยวน', 'คลองศก', 'พลูเถื่อน', 'คลองชะอุ่น'];
   const data = {
     labels: labels,
     datasets: [{

@@ -18,6 +18,8 @@ const path = require('path')
 import { join } from 'path';
 import { AppointmentDiseaseService } from 'src/services/pim/appointmentDisease.service';
 import { AppointmentDisease } from 'src/models/req/appointmentDisease.models';
+const fs = require('fs').promises;
+
 
 @Controller("api/pim")
 export class PimController {
@@ -46,10 +48,15 @@ export class PimController {
   @Header('Content-Type','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
   @Header('Content-disposition', 'attachment; filename="pim.xlsx"')
   getDataPatientExcel(@Query('search') search,@Headers('Authorization') headers: any): StreamableFile{
-    if(this.patientService.patientExcel()){
-      const file = createReadStream(join(process.cwd(), 'public/excel/Excel.xlsx'));
-      console.log(file)
-      return new StreamableFile(file);
+    try {
+
+      if(this.patientService.patientExcel()){
+        const file = createReadStream(join(process.cwd(), 'public/excel/Excel.xlsx'));
+        console.log(file)
+        return new StreamableFile(file);
+      }
+    } catch (err) {
+      console.error(err.message);
     }
   }
 
@@ -141,11 +148,11 @@ export class PimController {
 
   @Get("/data/appointmentDisease")
   getDataAppointmentDisease(@Query('search') search,@Headers('Authorization') headers: any):Object{
-    return this.appointmentService.findAll();
+    return this.appointmentDiseaseService.findAll();
   }
 
   @Delete("/del/appointmentDisease/:id")
   delAppointmentDisease(@Param('id') id: string,@Headers('Authorization') headers: any):Object{
-    return this.appointmentService.remove(id);
+    return this.appointmentDiseaseService.remove(id);
   }
 }

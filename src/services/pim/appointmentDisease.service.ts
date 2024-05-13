@@ -18,8 +18,8 @@ export class AppointmentDiseaseService {
 
   async findAll(): Promise<Object> {
       const user = await this.appointmentDiseaseRepository
-                        .createQueryBuilder("appointment")
-                        .leftJoinAndSelect("appointment.napNo", "napNo")
+                        .createQueryBuilder("appointmentDisease")
+                        .leftJoinAndSelect("appointmentDisease.napNo", "napNo")
                         .getMany()
       return user;
     }

@@ -3,8 +3,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Patient } from 'src/models/req/patient.models';
 import { TblPatient } from 'src/entity/patient.entity';
+import { TblMedicineHtr } from 'src/entity/medicineHistory.entity';
+import { join } from 'path';
 var xl = require('excel4node');
-var wb = new xl.Workbook();
+const fs = require('fs').promises;
 
 @Injectable()
 export class PatientService {
@@ -12,6 +14,8 @@ export class PatientService {
   constructor(
     @InjectRepository(TblPatient)
     private patientRepository: Repository<TblPatient>,
+    @InjectRepository(TblMedicineHtr)
+    private drughtyRepository: Repository<TblMedicineHtr>,
   ) { }
 
   async findAll(): Promise<TblPatient[]> {
@@ -81,14 +85,14 @@ export class PatientService {
 
 
   async patientExcel(): Promise<boolean>{
-    
+
     const patients  = await this.patientRepository
     .createQueryBuilder("patient")
     .leftJoinAndSelect("patient.morbidities", "morbidities")
     .leftJoinAndSelect("patient.medicineHtr", "medicineHtr")
     .leftJoinAndSelect("patient.appointmentDisease", "appointmentDisease")
     .getMany()
-
+    var wb = new xl.Workbook();
     var ws = wb.addWorksheet('Sheet 1');
     var style1 = wb.createStyle({
       font: {
@@ -231,6 +235,43 @@ export class PatientService {
       ws.cell(item+3, 12)
       .string(values.name)
       .style(style2);
+      
+      values.appointmentDisease.forEach((valuesD, itemD) => {
+        ws.cell(2, 13+itemD)
+        .string(valuesD.type)
+        .style(style2);
+
+        ws.cell(item+3, 13+itemD)
+        .number(valuesD.checkType)
+        .style(style2);
+      })
+
+      values.medicineHtr.forEach(async (valuesM, itemM) => {
+        const user:any = await this.drughtyRepository
+        .createQueryBuilder("drughty")
+        .leftJoinAndSelect("drughty.dId", "dId")
+        .where('drughty.mhId = :id',{
+          id: valuesM.mhId
+        })
+        .getOne()
+        
+        console.log(user)
+        console.log(user.dId)
+        console.log(`${user.dId.name}`)
+
+        ws.cell(2, 14+itemM)
+        .string("เเพ้ยา")
+        .style(style2);
+
+        ws.cell(item+3, 14+itemM)
+        .string(`${user.dId.name}`)
+        .style(style2);
+        
+      })
+
+      values.morbidities.forEach((valuesD, itemD) => {
+        
+      })
 
     });
     await wb.write('public/excel/Excel.xlsx');
