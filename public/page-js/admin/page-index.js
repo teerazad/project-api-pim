@@ -18,29 +18,17 @@ const listVLN = []
 const listVLW = []
 const listVLD = []
 
+const listXRN = []
+const listXRD = []
+
+const listCDN = []
+const listCDW = []
+const listCDD = []
 
 axios('https://pim.phanomhospital.online/api/pim/data/patient?search=')
   .then(function (response) {
     console.log(response.data);
     (response.data).forEach((values, item) => {
-      if (values.prefix == 'นาย') {
-        listX.push(values.napNo)
-
-      } else {
-        listY.push(values.napNo)
-      }
-      (values.appointmentDisease).forEach((values2, item) => {
-        if(values2.type=='vl'){
-          if(values2.checkType<=50){
-            listVLN.push(values.napNo)
-          }else if (values2.checkType<=1000){
-            listVLW.push(values.napNo)
-          }else if (values2.checkType>=1001){
-            listVLD.push(values.napNo)
-          }
-        }
-      })
-      
       if (values.place == 'พนม') {
         listV1.push(values.napNo)
       } else if (values.place == 'ต้นยวน') {
@@ -54,7 +42,44 @@ axios('https://pim.phanomhospital.online/api/pim/data/patient?search=')
       } else if (values.place == 'คลองชะอุ่น') {
         listV6.push(values.napNo)
       }
+      
+      if (values.prefix == 'นาย') {
+        listX.push(values.napNo)
 
+      } else {
+        listY.push(values.napNo)
+      }
+
+      (values.appointmentDisease).forEach((values2, item) => {
+        if(values2.type=='vl'){
+          if(values2.checkType<=50){
+            listVLN.push(values.napNo)
+          }else if (values2.checkType<=1000){
+            listVLW.push(values.napNo)
+          }else if (values2.checkType>=1001){
+            listVLD.push(values.napNo)
+          }
+        }
+
+        if(values2.type=='cd4'){
+          if(values2.checkType<=500){
+            listCDN.push(values.napNo)
+          }else if (values2.checkType<=1500){
+            listCDW.push(values.napNo)
+          }else if (values2.checkType>=1501){
+            listCDD.push(values.napNo)
+          }
+        }
+
+        if(values2.type=='x-rey'){
+          if(values2.checkType == 'ปกติ'){
+            listXRN.push(values.napNo)
+          }else if (values2.checkType == 'ผิดปกติ'){
+            listXRD.push(values.napNo)
+          }
+        }
+      })
+      
     })
   })
   .catch(function (error) {
@@ -244,5 +269,83 @@ setTimeout(() => {
 
   const ctx3 = document.getElementById('myChart3');
   new Chart(ctx3, config3);
+
+  const labels4 = ['ปกติ', ' ควบคุมโรคไม่ได้','ภาวะเสี่ยง'];
+  const data4 = {
+    labels: labels4,
+    datasets: [{
+      label: "ข้อมูล VL ของผู้ป่วยเเต่ละประเภท",
+      data: [listCDN.length, listCDW.length, listCDD.length],
+      backgroundColor: [
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 99, 132, 0.2)'
+      ],
+      borderColor: [
+        'rgb(75, 192, 192)',
+        'rgb(255, 159, 64)',
+        'rgb(255, 99, 132)',
+      ],
+      borderWidth: 1
+    }]
+  };
+  const config4 = {
+    type: 'pie',
+    data: data4,
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          //   text: 'Chart.js Pie Chart'
+        }
+      }
+    },
+  };
+  const ctx4 = document.getElementById('myChart4');
+  new Chart(ctx4, config4);
+
+
+  const labels5 = ['ปกติ', 'ผิดปกติ'];
+  const data5 = {
+    labels: labels5,
+    datasets: [{
+      label: "ข้อมูล VL ของผู้ป่วยเเต่ละประเภท",
+      data: [listXRN.length,listXRD.length],
+      backgroundColor: [
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 99, 132, 0.2)'
+      ],
+      borderColor: [
+        'rgb(75, 192, 192)',
+        'rgb(255, 159, 64)',
+        'rgb(255, 99, 132)',
+      ],
+      borderWidth: 1
+    }]
+  };
+  const config5 = {
+    type: 'pie',
+    data: data5,
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          //   text: 'Chart.js Pie Chart'
+        }
+      }
+    },
+  };
+  const ctx5 = document.getElementById('myChart5');
+  new Chart(ctx5, config5);
+
 
 }, 2000);

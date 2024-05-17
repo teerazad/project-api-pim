@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/"
   data-template="vertical-menu-template-free">
-<%-include('../html/head.ejs'); %>
+<!-- <%-include('../html/head.ejs'); %> -->
+<header></header>
 
   <body>
+   
+
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -102,14 +105,30 @@
                         </div>
 
                           <!-- ที่อยู่ -->
+                     
+                            <h2>Thailand.js</h2>
+                            <div class="form-control">
+                              <span>อำเภอ/เขต</span>
+                              <input id="amphoe" type="text" class="txt" placeholder="อำเภอ">
+                            </div>
+                            <div class="form-control">
+                              <span>จังหวัด</span>
+                              <input id="province" type="text" class="txt" placeholder="จังหวัด">
+                            </div>
+                            <div class="form-control">
+                              <span>รหัสไปรษณีย์</span>
+                              <input id="zipcode" type="text" class="txt" placeholder="รหัสไปรษณีย์">
+                            </div>
+                          
+
                         <div class="mb-3">
                           <label class="form-label" for="a16" style="font-size: medium; font-weight: bold;">หมู่บ้าน</label>
                           <input type="number" class="form-control" id="a16" placeholder="หมู่บ้าน ..." />
                         </div>
 
                         <div class="mb-3">
-                          <label class="form-label" for="a17" style="font-size: medium; font-weight: bold;">ตำบล</label>
-                          <input type="text" class="form-control" id="a17" placeholder="ตำบล ..." />
+                          <label class="form-label" for="district" style="font-size: medium; font-weight: bold;">ตำบล</label>
+                          <input type="text" class="form-control" id="district" placeholder="ตำบล ..." />
                         </div>
 
                         <div class="mb-3">
@@ -144,7 +163,37 @@
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
-    <%-include('../html/script.ejs'); %>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../assets/system/jquery.Thailand.js/dependencies/JQL.min.js"></script>
+    <script type="text/javascript" src="../assets/system/jquery.Thailand.js/dependencies/typeahead.bundle.js"></script>
+    <script type="text/javascript" src="../assets/system/jquery.Thailand.js/dist/jquery.Thailand.min.js"></script>
+    <link rel="stylesheet" href="../assets/system/jquery.Thailand.js/dist/jquery.Thailand.min.css">
+    <script type="text/javascript" src="../assets/system/jquery.Thailand.js/dist/jquery.Thailand.min.js"></script>
+    
+    
+    
+    <script>
+    
+        $.Thailand({
+            database: '../assets/system/jquery.Thailand.js/database/db.json', 
+            $district: $('#district'),
+            $amphoe: $('#amphoe'),
+            $province: $('#province'),
+            $zipcode: $('#zipcode'),
+            onDataFill: function(data){
+                console.info('Data Filled', data);
+            },
+    
+            onLoad: function(){
+                console.info('Autocomplete is ready!');
+                $('#loader, .demo').toggle();
+            }
+    
+        });
+    
+    </script>
+
+ <%-include('../html/script.ejs'); %>
       <script type="module" src="../page-js/pim/page-patient.js"></script>
   </body>
 

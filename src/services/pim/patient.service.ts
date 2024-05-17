@@ -261,7 +261,7 @@ export class PatientService {
         .style(style2);
 
         ws.cell(item+3, 13+itemD)
-        .number(valuesD.checkType)
+        .string(`${valuesD.checkType}`)
         .style(style2);
       })
 
