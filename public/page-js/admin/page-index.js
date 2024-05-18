@@ -157,7 +157,7 @@ setTimeout(() => {
   const data = {
     labels: labels,
     datasets: [{
-      label: 'My First Dataset',
+      label: 'ข้อมูลผู้ป่วยเเต่ละจังหวัด',
       data: numberP,
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
