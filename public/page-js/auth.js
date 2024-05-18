@@ -22,6 +22,9 @@ fetch('https://pim.phanomhospital.online/api/users/auth', {
 
         document.getElementById('userall').hidden=true;
 
+        document.getElementById('drug').hidden=true;
+        document.getElementById('disease').hidden=true;
+
         const para = document.createElement("p");
         const node = document.createTextNode(data.name);
         para.style.cssText='font-weight: bold;'

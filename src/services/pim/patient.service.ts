@@ -39,6 +39,18 @@ export class PatientService {
     // return this.patientRepository.find();
   }
 
+  async getIsdataPatient(search:string): Promise<Object> {
+    const data = await this.patientRepository
+          .createQueryBuilder('patient')
+          .where('patient.napNo = :napNo', 
+          {
+            napNo: `${search == undefined ?``:search}`
+          })
+          .getMany();
+
+      return data;
+  }
+
   //   findOne(id: string): Promise<TblOfficers | null> {
   //     return this.usersRepository.findOneBy({ id });
   //   }
@@ -57,6 +69,50 @@ export class PatientService {
 
     }
 
+    async update(patient: Patient): Promise<Object> {
+      try {
+
+        await this.patientRepository
+          .createQueryBuilder()
+          .update(TblPatient)
+          .set({
+            
+            napNo: patient.napNo,
+            prefix: patient.prefix,
+            firstName: patient.firstName,
+            lastName:patient.lastName,
+            nickname:patient.nickname,
+            birthday: patient.birthday,
+            age: patient.age,
+            hn: patient.hn,
+            phoneNumber: patient.phoneNumber,
+            idcard: patient.idcard,
+            weight: patient.weight,
+            height: patient.height,
+            job: patient.job,
+            ucepId: patient.ucepId,
+            name: patient.name,
+            village: patient.village,
+            place: patient.place,
+            canton: patient.canton,
+            province: patient.province,
+            postalCode: patient.postalCode
+            
+          })
+          .where("napNo = :napNo", { napNo : patient.napNo })
+          .execute()
+          return {
+            "statusCode": HttpStatus.OK,
+            "message": " Succeed",
+          };
+      } catch (error) {
+        return {
+          "statusCode": HttpStatus.BAD_REQUEST,
+          "message": error
+        }
+      }
+    }
+  
 
   async save(patient: Patient) {
     try {

@@ -38,10 +38,21 @@ export class PimController {
     return this.patientService.save(patient);
   }
 
+  @Post("/edit/patient")
+  EditPatient(@Body() patient: Patient): Object{
+    return this.patientService.update(patient);
+  }
+
   @Get("/data/patient")
   getDataPatient(@Query('search') search,@Headers('Authorization') headers: any): Object{
     this.patientService.patientExcel()
     return this.patientService.findAll();
+  }
+
+  @Get("/data2/patient")
+  getDataPatient2(@Query('search') search,@Headers('Authorization') headers: any): Object{
+    this.patientService.patientExcel()
+    return this.patientService.getIsdataPatient(search);
   }
 
   @Delete("/del/patient/:id")

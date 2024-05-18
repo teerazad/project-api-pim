@@ -98,5 +98,11 @@ export class ViewsController {
     return null;
   }
 
+  @Get('admin/page-patient-edit')
+  @Render('admin/page-patient-edit')
+  getEditpatient(): object {
+    return null;
+  }
+
 }
 

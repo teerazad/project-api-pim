@@ -25,10 +25,30 @@ const listCDN = []
 const listCDW = []
 const listCDD = []
 
+const province = []
+const numberP = []
+const mapTh = new Map();
+console.log(mapTh.get("สึนา"))
 axios('https://pim.phanomhospital.online/api/pim/data/patient?search=')
   .then(function (response) {
     console.log(response.data);
-    (response.data).forEach((values, item) => {
+    (response.data).forEach(async (values, item) => {
+      var num = mapTh.get(values.province) == undefined?0:mapTh.get(values.province);
+      mapTh.set(values.province,num+1)
+      console.log(mapTh)
+        // const amphoe = [];
+        // await fetch('../assets/system/jquery.Thailand.js/database/raw_database/raw_database.json')
+        //     .then((response) => response.json())
+        //     .then(async(json) => {
+        //         await console.log(json)
+        //         await json.forEach(element => {
+        //             amphoe.push(element.amphoe)
+        //             mapTh.set(element.province,amphoe)
+        //         });
+        //         await console.log(mapTh)
+    
+        //     });
+    
       if (values.place == 'พนม') {
         listV1.push(values.napNo)
       } else if (values.place == 'ต้นยวน') {
@@ -128,23 +148,17 @@ setTimeout(() => {
     }]
   };
 
-  const labels = ['พนม', 'ต้นยวน', 'คลองศก', 'พลูเถื่อน', 'พังกาญจน์','คลองชะอุ่น'];
+  for (let [key, value] of mapTh) {
+    province.push(key)
+    numberP.push(value)
+  }
+
+  const labels = province;
   const data = {
     labels: labels,
     datasets: [{
       label: 'My First Dataset',
-      data: [
-        listV1.length, 
-        listV2.length, 
-        listV3.length, 
-        listV4.length, 
-        listV5.length, 
-        listV6.length, 
-        listV7.length, 
-        listV8.length, 
-        listV9.length, 
-        listV10.length
-      ],
+      data: numberP,
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(255, 159, 64, 0.2)',
@@ -187,28 +201,28 @@ setTimeout(() => {
     options: {
       scales: {
         y: {
-          beginAtZero: true
-        }
+          min: 0,
+          max: 100,
+          title: {
+            display: true,
+            text: '(คน)',
+            font: {
+              size: 25
+          }
+          }
+        },
+        // x: {
+        //   title: {
+        //     display: true,
+        //     text: ''
+        //   }
+        // }
       }
     },
   };
 
   const ctx1 = document.getElementById('myChart1');
   new Chart(ctx1, config);
-
-
-
-  // const config2 = {
-  //     type: 'bar',
-  //     data: data2,
-  //     options: {
-  //       scales: {
-  //         y: {
-  //           beginAtZero: true
-  //         }
-  //       }
-  //     },
-  // };
 
   const config2 = {
     type: 'pie',
@@ -346,6 +360,8 @@ setTimeout(() => {
   };
   const ctx5 = document.getElementById('myChart5');
   new Chart(ctx5, config5);
-
+  
 
 }, 2000);
+
+

@@ -93,7 +93,7 @@ setTimeout(() => {
                 formatter: (cell, row) => {
                     return h('button', {
                         className: 'btn btn-warning',
-                        onClick: () => {localStorage.setItem('userAdmin', row.cells[2].data);window.location.href = 'page-admin-edit';}
+                        onClick: () => {localStorage.setItem('userPatient', row.cells[2].data);window.location.href = 'page-patient-edit';}
                     }, 'Edit');
                 }
             },

@@ -256,3 +256,28 @@ setTimeout(() => {
         },
     }).render(document.getElementById("wrapper2"));
 }, 1000);
+
+
+function isPastDate(dateToCheck) {
+    var now = new Date();
+    var givenDate = new Date(dateToCheck);
+    
+    return givenDate < now;
+}
+
+
+  Array.from(document.getElementsByClassName('mb-3 day')).forEach(function (el) {
+    el.addEventListener('input', function (e) {
+      var Date = document.getElementById('a3').value;
+        if (isPastDate(Date)) {
+            Swal.fire({
+                        icon: "error",
+                        title: "กรุณากรอกข้อมูลวันเวลามากกว่าวันปัจจุบัน"
+                    });
+            document.getElementById('a3').value="";
+        } else {
+            console.log("วันและเวลาที่เช็คไม่ได้อยู่ในอดีต");
+        }
+      
+    })
+  });
